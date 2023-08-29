@@ -25,6 +25,7 @@
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/custom-popup.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -155,14 +156,32 @@
 								                <td>${loaiThanhVien.ten}</td>
 								                <td>${loaiThanhVien.mota}</td>
 								                <td>
-								                    <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-								                    <a href="#" class="btn btn-sm btn-danger">Xóa</a>
+								                    <a href="#" class="btn btn-sm btn-primary btn-sua">Sửa</a>
+								                    <a href="#" id-role="${loaiThanhVien.id}" class="btn btn-sm btn-danger btn-xoa">Xóa</a>
 								                </td>
 								            </tr>
 								        </c:forEach>
 								    </tbody>
 								</table>
                             </div>
+                        </div>
+                        <div class="popup" id="popup">
+                       		<h2>Nhập thông tin cần thêm</h2>
+                       		<form action="" method="get" class="form-popup">
+                       		  <div class="input-container">
+                       		  	<div class="form-popup">
+							    <label for="name">Tên: </label>
+							    <input type="text" name="name" id="name" required />
+							  </div>
+							  <div class="form-popup">
+							    <label for="description">Mô tả: </label>
+							    <input type="text" name="description" id="description" />
+							  </div>
+                       		  </div>  
+							  <div class="form-popup">
+							    <input type="submit" name="submit" value="Xác nhận" />
+							  </div>
+							</form>
                         </div>
                     </div>
                 </div>
@@ -192,6 +211,7 @@
             $('#example').DataTable();
         });
     </script>
+    <script type="text/javascript" src = "js/role1.js"></script>    
 </body>
 
 </html>

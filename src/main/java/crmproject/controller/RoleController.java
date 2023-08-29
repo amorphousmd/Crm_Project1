@@ -10,17 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import crmproject.entity.LoaiThanhVien;
-import crmproject.service.QuyenService;
-import crmproject.service.RoleTableService;
+import crmproject.service.RoleService;
 
-@WebServlet(name = "quyenController", urlPatterns = {"/role-add", "/role-table"})
+@WebServlet(name = "roleController", urlPatterns = {"/role-add", "/role-table"})
 public class RoleController extends HttpServlet{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private QuyenService quyenService = new QuyenService();
-	private RoleTableService roleTableService = new RoleTableService();
+	private RoleService quyenService = new RoleService();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -31,7 +29,7 @@ public class RoleController extends HttpServlet{
 			break;
 		
 		case "/role-table":
-			List<LoaiThanhVien> listLoaiThanhVien = roleTableService.getRoleTable();
+			List<LoaiThanhVien> listLoaiThanhVien = quyenService.getRoleTable();
 			req.setAttribute("roleList", listLoaiThanhVien);
 			req.getRequestDispatcher("role-table.jsp").forward(req, resp);
 			break;

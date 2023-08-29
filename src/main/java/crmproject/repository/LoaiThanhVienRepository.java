@@ -80,4 +80,21 @@ public class LoaiThanhVienRepository {
 		
 		return listLoaiThanhVien;
 	}
+	
+	public int delelteById(int id) {
+		int count = 0;
+		String query = "DELETE FROM loaithanhvien WHERE id = ?";
+		Connection connection = MysqlConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			count = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }
