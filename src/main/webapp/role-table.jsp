@@ -140,7 +140,7 @@
                     <div class="col-sm-12">
                         <div class="white-box">
                             <div class="table-responsive">
-                                <table class="table" id="example">
+                                <table class="table table-select" id="example">
     								<thead>
         								<tr>
 								            <th>STT</th>
@@ -171,15 +171,15 @@
                        		  <div class="input-container">
                        		  	<div class="form-popup">
 							    <label for="name">Tên: </label>
-							    <input type="text" name="name" id="name" required />
+							    <input id="popup-input-name" type="text" name="name" id="name" required />
 							  </div>
 							  <div class="form-popup">
 							    <label for="description">Mô tả: </label>
-							    <input type="text" name="description" id="description" />
+							    <input id="popup-input-description"type="text" name="description" id="description" />
 							  </div>
                        		  </div>  
 							  <div class="form-popup">
-							    <input type="submit" name="submit" value="Xác nhận" />
+							  	<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
 							  </div>
 							</form>
                         </div>
@@ -211,7 +211,7 @@
             $('#example').DataTable();
         });
     </script>
-    <script type="text/javascript" src = "js/role1.js"></script>    
+    <script type="text/javascript" src = "js/role3.js"></script>    
 </body>
 
 </html>
