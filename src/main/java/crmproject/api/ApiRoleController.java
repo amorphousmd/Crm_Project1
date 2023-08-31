@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import crmproject.entity.LoaiThanhVien;
 import crmproject.payload.response.BaseResponse;
 import crmproject.service.RoleService;
 
-@WebServlet(name = "apiRoleController", urlPatterns = {"/api/role/delete"})
+@WebServlet(name = "apiRoleController", urlPatterns = {"/api/role/delete", "/api/role/modify"})
 public class ApiRoleController extends HttpServlet{
 	
 	/**
@@ -27,35 +26,64 @@ public class ApiRoleController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		// TODO Auto-generated method stub
-		int id = Integer.parseInt(req.getParameter("id"));
-		
-		boolean isSuccess = roleService.deleteRoleById(id);
-		
-		BaseResponse baseResponse = new BaseResponse();
-		baseResponse.setStatuseCode(200);
-		baseResponse.setMessage(isSuccess ? "Success" : "Failed");
-		baseResponse.setData(isSuccess);
-		
-		String dataJSON = gson.toJson(baseResponse);
-
-//		String json = "{\"id\":2,\"ten\":\"leader\",\"mota\":\"test dữ liệu\"}";
-		
-//		LoaiThanhVien loaiThanhVien = gson.fromJson(json, LoaiThanhVien.class);
-		
-//		LoaiThanhVien loaiThanhVien = new LoaiThanhVien();
-//		loaiThanhVien.setId(2);
-//		loaiThanhVien.setTen("leader");
-//		loaiThanhVien.setMota("test du liệu");
-		
-//		String dataJSON = gson.toJson(baseResponse);
-		
-		PrintWriter out = resp.getWriter();
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        
-	    out.print(dataJSON);	
-        out.flush();   
+		String funcPath = req.getServletPath();
+		switch(funcPath) {
+		case "/api/role/delete":
+		{
+			int id = Integer.parseInt(req.getParameter("id"));
+			
+			boolean isSuccess = roleService.deleteRoleById(id);
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatuseCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			// String to json conversion
+			
+			/*
+			 * String json = "{\"id\":2,\"ten\":\"leader\",\"mota\":\"test dữ liệu\"}";
+			 * 
+			 * LoaiThanhVien loaiThanhVien = gson.fromJson(json, LoaiThanhVien.class);
+			 * 
+			 * LoaiThanhVien loaiThanhVien = new LoaiThanhVien(); loaiThanhVien.setId(2);
+			 * loaiThanhVien.setTen("leader"); loaiThanhVien.setMota("test du liệu");
+			 * 
+			 * String dataJSON = gson.toJson(baseResponse);
+			 */
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/role/modify":
+		{
+			int id = Integer.parseInt(req.getParameter("id"));
+			String modifedName = req.getParameter("name");
+			String modifedDescription = req.getParameter("description");
+			boolean isSuccess = roleService.modifyRoleById(id, modifedName, modifedDescription);
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatuseCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		}
 	}
 }

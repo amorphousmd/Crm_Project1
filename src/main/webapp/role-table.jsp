@@ -156,7 +156,7 @@
 								                <td>${loaiThanhVien.ten}</td>
 								                <td>${loaiThanhVien.mota}</td>
 								                <td>
-								                    <a href="#" class="btn btn-sm btn-primary btn-sua">Sửa</a>
+								                    <a href="#" id-role="${loaiThanhVien.id}" class="btn btn-sm btn-primary btn-sua">Sửa</a>
 								                    <a href="#" id-role="${loaiThanhVien.id}" class="btn btn-sm btn-danger btn-xoa">Xóa</a>
 								                </td>
 								            </tr>
@@ -166,7 +166,7 @@
                             </div>
                         </div>
                         <div class="popup" id="popup">
-                       		<h2>Nhập thông tin cần thêm</h2>
+                       		<h2>Nhập thông tin bạn cần thay đổi</h2>
                        		<form action="" method="get" class="form-popup">
                        		  <div class="input-container">
                        		  	<div class="form-popup">
@@ -211,7 +211,7 @@
             $('#example').DataTable();
         });
     </script>
-    <script type="text/javascript" src = "js/role3.js"></script>    
+    <script type="text/javascript" src = "js/role5.js"></script>    
 </body>
 
 </html>
