@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,35 +136,35 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
-                                <div class="form-group">
+                            <form class="form-horizontal form-material" action="<c:url value='/profile-edit'/>" method="post">
+                                <div class="form-group" >
                                     <label class="col-md-12">Tên dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Dự án CRM" class="form-control form-control-line">
+                                        <input type="text" readonly value="Dự án CRM" class="form-control form-control-line" name='project-name'>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Tên công việc</label>
+                                    <label class="col-md-12">Mô tả dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Thiết kế database" class="form-control form-control-line">
+                                        <input type="text" readonly value="Thiết kế database" class="form-control form-control-line" name='project-description'>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="05-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" readonly value="05-07/2020" class="form-control form-control-line" name='project-start-date'> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="17-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" readonly value="17-07/2020" class="form-control form-control-line" name='project-end-date'> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Trạng thái</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
+                                        <select class="form-control form-control-line" name='selected-state'>
                                             <option>Chưa thực hiện</option>
                                             <option selected>Đang thực hiện</option>
                                             <option>Đã hoàn thành</option>
@@ -176,6 +178,13 @@
                                     </div>
                                 </div>
                             </form>
+                            <c:if test="${isSuccess == true }">
+                            	<h4> Add successful</h4>	
+                            </c:if>
+                            
+                            <c:if test="${isSuccess == false }">
+                            	<h4> Add failed</h4>	
+                            </c:if>
                         </div>
                     </div>
                     <div class="col-md-2 col-12"></div>
