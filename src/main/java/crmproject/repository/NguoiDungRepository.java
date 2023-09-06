@@ -13,6 +13,79 @@ import crmproject.entity.NguoiDung;
 
 
 public class NguoiDungRepository {
+	public List<NguoiDung> findAll() {
+		String query = "SELECT * \r\n"
+				+ "FROM nguoidung n; ";
+		Connection connection = MysqlConfig.getConnection();
+		List<NguoiDung> listNguoiDung = new ArrayList<NguoiDung>();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				NguoiDung nguoiDung = new NguoiDung();
+				nguoiDung.setId(resultSet.getInt("id"));
+				nguoiDung.setEmail(resultSet.getString("email"));
+				nguoiDung.setMatkhau(resultSet.getString("matkhau"));
+				nguoiDung.setFullname(resultSet.getString("fullname"));
+				nguoiDung.setDiachi(resultSet.getString("diachi"));
+				nguoiDung.setSoDienThoai(resultSet.getString("soDienThoai"));
+				LoaiThanhVien loaiThanhVien = new LoaiThanhVien();
+				loaiThanhVien.setId(resultSet.getInt("id_loaithanhvien"));
+				nguoiDung.setLoaiThanhVien(loaiThanhVien);
+				
+				listNguoiDung.add(nguoiDung);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Query execution error" + e.getLocalizedMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					System.out.println("Loi dong ket noi" + e.getLocalizedMessage());
+				}
+			}
+		}
+		
+		return listNguoiDung;
+	}
+	
+	public boolean insertAllFields(	String email, String matkhau, 
+									String fullname, String diachi, 
+									String soDienThoai, int idLoaiThanhVien) {
+		String query = "INSERT INTO NguoiDung(email, matkhau, fullname, diachi, soDienThoai, id_loaithanhvien)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?, ?);";
+		Connection connection = MysqlConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			statement.setString(1, email);
+			statement.setString(2, matkhau);
+			statement.setString(3, fullname);
+			statement.setString(4, diachi);
+			statement.setString(5, soDienThoai);
+			statement.setInt(6, idLoaiThanhVien);
+			
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("Query execution error" + e.getLocalizedMessage());
+			return false;
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					System.out.println("Close connection failed" + e.getLocalizedMessage());
+				}
+			}
+		}
+		return true;
+	}
+	
 	public List<NguoiDung> findByEmailandPassword(String email, String matkhau) {
 		String query = "SELECT *\r\n"
 				+ "FROM nguoidung nd\r\n"
@@ -23,17 +96,14 @@ public class NguoiDungRepository {
 		List<NguoiDung> listNguoiDung = new ArrayList<NguoiDung>();
 		
 		try {
-			// Truyen query vao trong connection
 			PreparedStatement statement = connection.prepareStatement(query);
 			
-			// Truyen gia tri tham so vao query neu co (Cho nao co ? la co tham so)
-			statement.setString(1, email); // setInt, setString phai phu thuoc vao kieu du lieu cua cot dang so sanh tham so
+			statement.setString(1, email);
 			statement.setString(2, matkhau);
 			
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				NguoiDung nguoiDung = new NguoiDung();
-//				int id = resultSet.getInt("id");
 				nguoiDung.setId(resultSet.getInt("id"));
 				nguoiDung.setFullname(resultSet.getString("fullname"));
 				nguoiDung.setEmail(resultSet.getString("email"));
@@ -48,14 +118,12 @@ public class NguoiDungRepository {
 
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Query execution error" + e.getLocalizedMessage());
 		} finally {
 			if (connection != null) {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					System.out.println("Loi dong ket noi" + e.getLocalizedMessage());
 				}
 			}
@@ -63,51 +131,4 @@ public class NguoiDungRepository {
 		
 		return listNguoiDung;
 	}
-	
-	
-//	public List<NguoiDung> findByEmailandPassword(String email, String matkhau) {
-//		String query = "SELECT *\r\n"
-//				+ "FROM nguoidung nd\r\n"
-//				+ "WHERE nd.email = ? AND nd.matkhau = ?;";
-//		
-//		Connection connection = MysqlConfig.getConnection();
-//		List<NguoiDung> listNguoiDung = new ArrayList<NguoiDung>();
-//		
-//		try {
-//			// Truyen query vao trong connection
-//			PreparedStatement statement = connection.prepareStatement(query);
-//			
-//			// Truyen gia tri tham so vao query neu co (Cho nao co ? la co tham so)
-//			statement.setString(1, email); // setInt, setString phai phu thuoc vao kieu du lieu cua cot dang so sanh tham so
-//			statement.setString(2, matkhau);
-//			
-//			ResultSet resultSet = statement.executeQuery();
-//			while (resultSet.next()) {
-//				NguoiDung nguoiDung = new NguoiDung();
-////				int id = resultSet.getInt("id");
-//				nguoiDung.setId(resultSet.getInt("id"));
-//				nguoiDung.setFullname(resultSet.getString("fullname"));
-//				nguoiDung.setEmail(resultSet.getString("email"));
-//				
-//				listNguoiDung.add(nguoiDung);
-//			}
-//			
-//
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Query execution error" + e.getLocalizedMessage());
-//		} finally {
-//			if (connection != null) {
-//				try {
-//					connection.close();
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					System.out.println("Loi dong ket noi" + e.getLocalizedMessage());
-//				}
-//			}
-//		}
-//		
-//		return listNguoiDung;
-//	}
 }

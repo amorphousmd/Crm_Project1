@@ -10,7 +10,8 @@ public class ProfileService {
 								int idNguoiQuanLy, String trangThai ) {
 		
 		int idTrangThai = 1;
-		System.out.println(trangThai);
+		
+		// Convert String to int.
 		switch (trangThai) {
 		case "Chưa thực hiện":
 			idTrangThai = 3;

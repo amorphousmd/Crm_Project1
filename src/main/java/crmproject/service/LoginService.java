@@ -23,16 +23,4 @@ public class LoginService {
 		
 		return listNguoiDung.size() > 0;
 	}
-	
-	// Implemented using cookies
-//	public boolean checkLogin(String email, String password, HttpServletResponse resp) {
-//		List<NguoiDung> listNguoiDung = nguoiDungRepository.findByEmailandPassword(email, password);
-//		if (listNguoiDung.size() > 0) {
-//			Cookie adminCookie = new Cookie("adminCookie", listNguoiDung.get(0).getLoaiThanhVien().getTen());
-//			adminCookie.setMaxAge(60);
-//			resp.addCookie(adminCookie);
-//		}
-//		
-//		return listNguoiDung.size() > 0;
-//	}
 }

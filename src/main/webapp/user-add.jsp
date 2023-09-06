@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,36 +133,36 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="<c:url value='/user-add'/>" method="post">
                                 <div class="form-group">
                                     <label class="col-md-12">Full Name</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Johnathan Doe"
-                                            class="form-control form-control-line"> </div>
+                                            class="form-control form-control-line" name='user-fullname'> </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email" class="col-md-12">Email</label>
                                     <div class="col-md-12">
                                         <input type="email" placeholder="johnathan@admin.com"
-                                            class="form-control form-control-line" name="example-email"
+                                            class="form-control form-control-line" name="user-email"
                                             id="example-email"> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Password</label>
                                     <div class="col-md-12">
-                                        <input type="password" value="password" class="form-control form-control-line">
+                                        <input type="password" value="password" class="form-control form-control-line" name='user-password'>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Phone No</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="123 456 7890"
-                                            class="form-control form-control-line"> </div>
+                                            class="form-control form-control-line" name='user-phone'> </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-12">Select Country</label>
                                     <div class="col-sm-12">
-                                        <select class="form-control form-control-line">
+                                        <select class="form-control form-control-line" name='user-selected-location'>
                                             <option>London</option>
                                             <option>India</option>
                                             <option>Usa</option>
@@ -177,6 +178,13 @@
                                     </div>
                                 </div>
                             </form>
+                            <c:if test="${isSuccess == true }">
+                            	<h4> Add successful</h4>	
+                            </c:if>
+                            
+                            <c:if test="${isSuccess == false }">
+                            	<h4> Add failed</h4>	
+                            </c:if>
                         </div>
                     </div>
                     <div class="col-md-2 col-12"></div>
