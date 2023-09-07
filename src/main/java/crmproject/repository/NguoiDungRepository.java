@@ -92,8 +92,9 @@ public class NguoiDungRepository {
 				+ "JOIN loaithanhvien l ON l.id = nd.id_loaithanhvien\r\n"
 				+ "WHERE nd.email = ? AND nd.matkhau = ?;";
 		
-		Connection connection = MysqlConfig.getConnection();
 		List<NguoiDung> listNguoiDung = new ArrayList<NguoiDung>();
+		
+		Connection connection = MysqlConfig.getConnection();
 		
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
@@ -130,5 +131,50 @@ public class NguoiDungRepository {
 		}
 		
 		return listNguoiDung;
+	}
+	
+	public int deleteAtId(int id) {
+		int count = 0;
+		String query = "DELETE FROM nguoidung WHERE id = ?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	public int modifyAtId(	int id, String email,
+							String fullname, String diachi, 
+							String soDienThoai, int idLoaiThanhVien) {
+		int count = 0;
+		String query = "UPDATE nguoidung\r\n"
+				+ "SET email=?, fullname=?, diachi=?, soDienThoai = ?, id_loaithanhvien=?\r\n"
+				+ "WHERE id=?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			statement.setString(1, email);
+			statement.setString(2, fullname);
+			statement.setString(3, diachi);
+			statement.setString(4, soDienThoai);
+			statement.setInt(5, idLoaiThanhVien);
+			statement.setInt(6, id);
+			
+			count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 }

@@ -24,4 +24,22 @@ public class UserService {
 		
 		return listNguoiDung;
 	}
+	
+	// Delete an entry from table by ID.
+	public boolean deleteUserById(int id) {
+		int count = nguoiDungRepository.deleteAtId(id);
+		
+		return count > 0;
+	}
+	
+	// Modify an entry from table by ID.
+	public boolean modifyUserById(	int id, String email,
+									String fullname, String diachi, 
+									String soDienThoai, int idLoaiThanhVien ) {
+		
+		int count = nguoiDungRepository.modifyAtId(	id, email, 
+													fullname, diachi, 
+													soDienThoai, idLoaiThanhVien);
+		return count > 0;
+	}
 }

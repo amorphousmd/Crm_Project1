@@ -25,6 +25,7 @@
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/custom-popup.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -161,9 +162,9 @@
                                     			<td>${nguoiDung.soDienThoai}</td>
                                     			<td>${nguoiDung.loaiThanhVien.id}</td>
                                     			<td>
-	                                               <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-	                                               <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-	                                               <a href="user-details.html" class="btn btn-sm btn-info">Xem</a>
+	                                               <a href="#" id-user="${nguoiDung.id}" class="btn btn-sm btn-modify btn-primary">Sửa</a>
+	                                               <a href="#" id-user="${nguoiDung.id}" class="btn btn-sm btn-delete btn-danger">Xóa</a>
+	                                               <a href="user-details.jsp" class="btn btn-sm btn-info">Xem</a>
                                             	</td>
                                     		</tr>
                                     	</c:forEach>
@@ -172,6 +173,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="popup" id="popup">
+                       		<h2>Nhập thông tin bạn cần thay đổi</h2>
+                       		<form action="" method="get" class="form-popup">
+                       		  <div class="input-container">
+                       		  	<div class="form-popup">
+							    	<label for="popup-input-fullname">Full Name: </label>
+							    	<input id="popup-input-fullname" type="text" name="name" id="name" required />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-email">Email: </label>
+							    	<input id="popup-input-email"type="text" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-location">Location: </label>
+							    	<input id="popup-input-location"type="text" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-phone">Phone: </label>
+							    	<input id="popup-input-phone"type="text" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-rolenum">Role Num: </label>
+							    	<input id="popup-input-rolenum"type="text" name="description" id="description" />
+							  	</div>
+                       		  </div>  
+							  <div class="form-popup">
+							  	<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
+							  </div>
+							</form>
+                	</div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -199,6 +230,7 @@
             $('#example').DataTable();
         });
     </script>
+    <script type="text/javascript" src="js/user1.js"></script>
 </body>
 
 </html>

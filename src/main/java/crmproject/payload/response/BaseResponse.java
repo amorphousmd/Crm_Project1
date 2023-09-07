@@ -8,7 +8,7 @@ public class BaseResponse {
 	public int getStatusCode() {
 		return statusCode;
 	}
-	public void setStatuseCode(int statusCode) {
+	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
 	public String getMessage() {

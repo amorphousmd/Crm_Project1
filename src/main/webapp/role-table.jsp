@@ -165,25 +165,25 @@
 								</table>
                             </div>
                         </div>
-                        <div class="popup" id="popup">
+                    </div>
+          				<div class="popup" id="popup">
                        		<h2>Nhập thông tin bạn cần thay đổi</h2>
                        		<form action="" method="get" class="form-popup">
                        		  <div class="input-container">
                        		  	<div class="form-popup">
-							    <label for="name">Tên: </label>
-							    <input id="popup-input-name" type="text" name="name" id="name" required />
-							  </div>
-							  <div class="form-popup">
+							    	<label for="name">Tên: </label>
+							    	input id="popup-input-name" type="text" name="name" id="name" required />
+							  	</div>
+							  	<div class="form-popup">
 							    <label for="description">Mô tả: </label>
-							    <input id="popup-input-description"type="text" name="description" id="description" />
-							  </div>
+							    	<input id="popup-input-description"type="text" name="description" id="description" />
+							  		</div>
                        		  </div>  
 							  <div class="form-popup">
 							  	<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
 							  </div>
 							</form>
                         </div>
-                    </div>
                 </div>
                 <!-- /.row -->
             </div>

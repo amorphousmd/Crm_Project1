@@ -17,9 +17,6 @@ import crmproject.service.RoleService;
 @WebServlet(name = "apiRoleController", urlPatterns = {"/api/role/delete", "/api/role/modify"})
 public class ApiRoleController extends HttpServlet{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
 	private RoleService roleService = new RoleService();
@@ -35,24 +32,11 @@ public class ApiRoleController extends HttpServlet{
 			boolean isSuccess = roleService.deleteRoleById(id);
 			
 			BaseResponse baseResponse = new BaseResponse();
-			baseResponse.setStatuseCode(200);
+			baseResponse.setStatusCode(200);
 			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
 			baseResponse.setData(isSuccess);
 			
 			String dataJSON = gson.toJson(baseResponse);
-			
-			// String to json conversion
-			
-			/*
-			 * String json = "{\"id\":2,\"ten\":\"leader\",\"mota\":\"test dữ liệu\"}";
-			 * 
-			 * LoaiThanhVien loaiThanhVien = gson.fromJson(json, LoaiThanhVien.class);
-			 * 
-			 * LoaiThanhVien loaiThanhVien = new LoaiThanhVien(); loaiThanhVien.setId(2);
-			 * loaiThanhVien.setTen("leader"); loaiThanhVien.setMota("test du liệu");
-			 * 
-			 * String dataJSON = gson.toJson(baseResponse);
-			 */
 			
 			PrintWriter out = resp.getWriter();
 	        resp.setContentType("application/json");
@@ -62,6 +46,7 @@ public class ApiRoleController extends HttpServlet{
 	        out.flush();   
 			break;
 		}
+		
 		case "/api/role/modify":
 		{
 			int id = Integer.parseInt(req.getParameter("id"));
@@ -70,7 +55,7 @@ public class ApiRoleController extends HttpServlet{
 			boolean isSuccess = roleService.modifyRoleById(id, modifedName, modifedDescription);
 			
 			BaseResponse baseResponse = new BaseResponse();
-			baseResponse.setStatuseCode(200);
+			baseResponse.setStatusCode(200);
 			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
 			baseResponse.setData(isSuccess);
 			
