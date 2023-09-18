@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import crmproject.service.ProfileService;
+import crmproject.service.ProjectService;
 import crmproject.tools.DateConversion;
 
 @WebServlet(name = "profileController", urlPatterns = {"/profile", "/profile-edit"})
@@ -17,7 +17,7 @@ public class ProfileController extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ProfileService profileService = new ProfileService();
+	private ProjectService profileService = new ProjectService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

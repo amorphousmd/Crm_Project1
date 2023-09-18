@@ -1,9 +1,26 @@
 package crmproject.service;
 
+import java.util.List;
+
+import crmproject.entity.DuAn;
 import crmproject.repository.DuAnRepository;
 
-public class ProfileService {
-	DuAnRepository duAnRepository = new DuAnRepository();
+public class ProjectService {
+	private DuAnRepository duAnRepository = new DuAnRepository();
+	// Grab all table entries service.
+	public List<DuAn> getProjectTable() {
+		List<DuAn> listDuAn = duAnRepository.findAll();
+		
+		return listDuAn;
+	}
+	
+	// Delete an entry from table by ID.
+	public boolean deleteRoleById(int id) {
+		int count = duAnRepository.deleteAtId(id);
+		
+		return count > 0;
+	}
+	
 	// Add profile service.
 	public boolean addProject(	String ten, String mota,
 								String ngayBatDau, String ngayKetThuc, 
