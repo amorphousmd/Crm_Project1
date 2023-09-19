@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +25,7 @@
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/custom-popup.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -151,39 +154,57 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>Dự án CRM</td>
-                                            <td>Nguyễn Văn Tèo</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đã hoàn thành</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="#" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế database</td>
-                                            <td>Dự án CRM</td>
-                                            <td>Trần Thị Lan</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đang thực hiện</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="#" class="btn btn-sm btn-info">Xem</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                        <c:forEach var="congViec" items="${taskList}">
+								            <tr>
+								                <td>${congViec.id}</td>
+								                <td>${congViec.ten}</td>
+								                <td>${congViec.duAn.id}</td>
+								                <td>Admin</td>
+								                <td>${congViec.ngayBatDau}</td>
+								                <td>${congViec.ngayKetThuc}</td>
+								                <td>${congViec.trangThai.id}</td>
+								                <td>
+								                   	<a href="#" id-user="${congViec.id}" class="btn btn-sm btn-modify btn-primary">Sửa</a>
+	                                               	<a href="#" id-user="${congViec.id}" class="btn btn-sm btn-delete btn-danger">Xóa</a>
+	                                               	<a href="user-details" class="btn btn-sm btn-info">Xem</a>
+								                </td>
+								            </tr>
+								        </c:forEach>                                    
+								    </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
+                    <div class="popup" id="popup">
+                     	<h2>Nhập thông tin bạn cần thay đổi</h2>
+                  		<form action="" method="get" class="form-popup">
+                     		<div class="input-container">
+		            		  	<div class="form-popup">
+							    	<label for="popup-input-task-name">Task Name: </label>
+							    	<input id="popup-input-task-name" type="text" name="name" id="name" required />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-task-project">Project To: </label>
+							    	<input id="popup-input-task-project"type="text" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-task-start-date">Email: </label>
+							    	<input id="popup-input-task-start-date"type="datetime-local" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-task-end-date">Location: </label>
+							    	<input id="popup-input-task-end-date"type="datetime-local" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-task-status">Status: </label>
+							    	<input id="popup-input-task-status"type="text" name="description" id="description" />
+							  	</div>
+                     		 </div>  
+					  <div class="form-popup">
+					  	<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
+					  </div>
+					</form>
+                	</div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -211,6 +232,7 @@
             $('#example').DataTable();
         });
     </script>
+    <script type="text/javascript" src="js/task.js"></script>
 </body>
 
 </html>

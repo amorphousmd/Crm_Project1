@@ -50,4 +50,16 @@ public class ProjectService {
 		return isSuccess;
 	}
 	
+	// Modify an entry from table by ID.
+	public boolean modifyUserById(	int id, String ten,
+									String mota, String ngayBatDau, 
+									String ngayKetThuc, int id_nguoiquanly, 
+									int id_trangthai ) {
+		
+		int count = duAnRepository.modifyAtId(	id, ten, 
+												mota, ngayBatDau, 
+												ngayKetThuc, id_nguoiquanly,
+												id_trangthai);
+		return count > 0;
+	}
 }

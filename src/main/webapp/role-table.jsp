@@ -172,7 +172,7 @@
                        		  <div class="input-container">
                        		  	<div class="form-popup">
 							    	<label for="name">Tên: </label>
-							    	input id="popup-input-name" type="text" name="name" id="name" required />
+							    	<input id="popup-input-name" type="text" name="name" id="name" required />
 							  	</div>
 							  	<div class="form-popup">
 							    <label for="description">Mô tả: </label>

@@ -25,6 +25,7 @@
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="./css/custom-popup.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -168,6 +169,36 @@
                             </div>
                         </div>
                     </div>
+                    <div class="popup" id="popup">
+                     	<h2>Nhập thông tin bạn cần thay đổi</h2>
+                  		<form action="" method="get" class="form-popup">
+                     		<div class="input-container">
+		            		  	<div class="form-popup">
+							    	<label for="popup-input-project-name">Project name: </label>
+							    	<input id="popup-input-project-name" type="text" name="name" id="name" required />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-project-start-date">Start Date: </label>
+							    	<input id="popup-input-project-start-date"type="datetime-local" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-project-end-date">End Date: </label>
+							    	<input id="popup-input-project-end-date"type="datetime-local" name="description" id="description" />
+							  	</div>
+							  	<!-- <div class="form-popup">
+							    	<label for="popup-input-phone">Phone: </label>
+							    	<input id="popup-input-phone"type="text" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-rolenum">Role Num: </label>
+							    	<input id="popup-input-rolenum"type="text" name="description" id="description" />
+							  	</div> -->
+                     		 </div>  
+					  <div class="form-popup">
+					  	<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
+					  </div>
+					</form>
+                	</div>
                 </div>
                 <!-- /.row -->
             </div>

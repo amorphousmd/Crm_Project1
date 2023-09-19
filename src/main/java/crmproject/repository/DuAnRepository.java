@@ -47,7 +47,7 @@ public class DuAnRepository {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					System.out.println("Loi dong ket noi" + e.getLocalizedMessage());
+					System.out.println("Error closing connection." + e.getLocalizedMessage());
 				}
 			}
 		}
@@ -101,7 +101,39 @@ public class DuAnRepository {
 			count = statement.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	
+	public int modifyAtId(	int id, String ten,
+							String mota, String ngayBatDau, 
+							String ngayKetThuc, int id_nguoiquanly, 
+							int id_trangthai) {
+		
+		int count = 0;
+		String query = "UPDATE duan \r\n"
+				+ "SET ten=?, mota=?, ngayBatDau=?, ngayKetThuc=?,id_nguoiquanly=?,id_trangthai=? \r\n"
+				+ "WHERE id=?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			
+			mota = "editLater";
+			statement.setString(1, ten);
+			statement.setString(2, mota);
+			statement.setString(3, ngayBatDau);
+			statement.setString(4, ngayKetThuc);
+			statement.setInt(5, id_nguoiquanly);
+			statement.setInt(6, id_trangthai);
+			statement.setInt(7, id);
+			
+			count = statement.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		

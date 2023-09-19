@@ -3,14 +3,17 @@ $( document ).ready(function (){
     document.querySelector('.btn-xacnhan').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default form submission behavior
 		const popup = document.getElementById("popup");
-		const nameInput = document.getElementById("popup-input-project-name");
-		const startDateInput = document.getElementById("popup-input-project-start-date");
-		const endDateInput = document.getElementById("popup-input-project-end-date");
+		const nameInput = document.getElementById("popup-input-task-name");
+		const startDateInput = document.getElementById("popup-input-task-start-date");
+		const endDateInput = document.getElementById("popup-input-task-end-date");
+		const projectInput = document.getElementById("popup-input-task-project");
+		const statusInput = document.getElementById("popup-input-task-status");
 		
 		const name = nameInput.value;
 		const startDate = startDateInput.value;
 		const endDate = endDateInput.value;
-
+		const project = projectInput.value;
+		const status = statusInput.value;
 		
 		var This = $(`.btn-modify[id-user="${selectedRow}"]`);
 		var id = selectedRow;
@@ -18,15 +21,17 @@ $( document ).ready(function (){
 		console.log("here");
 		$.ajax({
 		  method: "GET",
-		  url: `http://localhost:8080/crmproject/api/project/modify?id=${id}&projectName=${name}&startDate=${startDate}&endDate=${endDate}`,
+		  url: `http://localhost:8080/crmproject/api/task/modify?id=${id}&taskName=${name}&startDate=${startDate}&endDate=${endDate}&projectNum=${project}&statusNum=${status}`,
 		})
 		  .done(function( result ) {
 			  console.log(result, " data ", result.data);
 			  if(result.data == true){
 			  	var entryRow = This.parent().parent();
 		        entryRow.find("td:eq(1)").html(name);
-		        entryRow.find("td:eq(2)").html(startDate);
-		        entryRow.find("td:eq(3)").html(endDate);
+		        entryRow.find("td:eq(2)").html(project);
+		        entryRow.find("td:eq(4)").html(startDate);
+		        entryRow.find("td:eq(5)").html(endDate);
+		        entryRow.find("td:eq(6)").html(status);
 			  }
 		  });
 		
@@ -45,7 +50,7 @@ $( document ).ready(function (){
 		
 		$.ajax({
 		  method: "GET",
-		  url: `http://localhost:8080/crmproject/api/project/delete?id=${id}`,
+		  url: `http://localhost:8080/crmproject/api/task/delete?id=${id}`,
 		})
 		  .done(function( result ) {
 			  console.log(result, " data ", result.data);

@@ -12,23 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import crmproject.payload.response.BaseResponse;
-import crmproject.service.ProjectService;
+import crmproject.service.TaskService;
 
-@WebServlet(name = "apiProjectController", urlPatterns = {"/api/project/delete", "/api/project/modify"})
-public class ApiProjectController extends HttpServlet{
-
+@WebServlet(name = "apiTaskController", urlPatterns = {"/api/task/delete", "/api/task/modify"})
+public class ApiTaskController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
+	private TaskService taskService = new TaskService();
 	private Gson gson = new Gson();
-	private ProjectService projectService = new ProjectService();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String funcPath = req.getServletPath();
 		switch(funcPath) {
-		case "/api/project/delete":
+		case "/api/task/delete":
 		{
 			int id = Integer.parseInt(req.getParameter("id"));
 			
-			boolean isSuccess = projectService.deleteRoleById(id);
+			boolean isSuccess = taskService.deleteRoleById(id);
 			
 			BaseResponse baseResponse = new BaseResponse();
 			baseResponse.setStatusCode(200);
@@ -45,20 +45,20 @@ public class ApiProjectController extends HttpServlet{
 	        out.flush();   
 			break;
 		}
-		case "/api/project/modify":
+		case "/api/task/modify":
 		{
 			int id = Integer.parseInt(req.getParameter("id"));
-			String modifiedProjectName = req.getParameter("projectName");
-			String modifiedDescription = req.getParameter("projectDescription");
+			String modifiedTaskName = req.getParameter("taskName");
+			String modifiedDescription = req.getParameter("taskDescription");
 			String modifiedStartDate = req.getParameter("startDate");
 			String modifiedEndDate = req.getParameter("endDate");
-			String managerNum = req.getParameter("managerNum");
+			String projectNum = req.getParameter("projectNum");
 			String statusNum = req.getParameter("statusNum");
-			int modifiedManagerNum = 1;
+			int modifiedProjectNum = 1;
 			try {
-				modifiedManagerNum = Integer.parseInt(managerNum);
+				modifiedProjectNum = Integer.parseInt(projectNum);
 			} catch (NumberFormatException e) {
-				modifiedManagerNum = 1;
+				modifiedProjectNum = 1;
 			}
 			int modifiedStatusNum = 1;
 			try {
@@ -67,9 +67,9 @@ public class ApiProjectController extends HttpServlet{
 				modifiedStatusNum = 1;
 			}
 			
-			boolean isSuccess = projectService.modifyUserById(	id, modifiedProjectName,
+			boolean isSuccess = taskService.modifyUserById(	id, modifiedTaskName,
 																modifiedDescription, modifiedStartDate, 
-																modifiedEndDate, modifiedManagerNum, 
+																modifiedEndDate, modifiedProjectNum, 
 																modifiedStatusNum);
 			
 			BaseResponse baseResponse = new BaseResponse();
@@ -89,5 +89,4 @@ public class ApiProjectController extends HttpServlet{
 		}
 		}
 	}
-
 }
