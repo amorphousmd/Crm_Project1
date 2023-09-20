@@ -14,6 +14,23 @@ public class TaskService {
 		return listCongViec;
 	}
 	
+	public int getTaskLastestId() {
+		int maxId = congViecRepository.findLatestId();
+		
+		return maxId;
+	}
+	
+	// Add profile service.
+		public boolean addTask(	String ten, String mota,
+									String ngayBatDau, String ngayKetThuc, 
+									int idDuAn ) {
+			
+			boolean isSuccess = congViecRepository.insertAllFields(	ten, mota,
+																ngayBatDau, ngayKetThuc,
+																idDuAn);
+			return isSuccess;
+		}
+	
 	// Delete an entry from table by ID.
 	public boolean deleteRoleById(int id) {
 		int count = congViecRepository.deleteAtId(id);

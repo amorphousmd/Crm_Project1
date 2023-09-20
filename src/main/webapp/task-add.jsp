@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -134,14 +136,14 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form class="form-horizontal form-material" action="<c:url value='/task-add'/>" method="post">
                                 <div class="form-group">
                                     <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Dự án CRM</option>
-                                            <option>Dự án Elearning</option>
-                                            <option>Dự án Rạp chiếu phim</option>
+                                        <select class="form-control form-control-line" name='task-project-id'>
+                                        	<c:forEach var="duAn" items="${projectList}">
+                                        		<option value="${duAn.id}">${duAn.ten}</option>
+								        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
@@ -149,31 +151,31 @@
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Tên công việc"
-                                            class="form-control form-control-line">
+                                            class="form-control form-control-line" name='task-name'>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Người thực hiện</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Nguyễn Văn Tèo</option>
-                                            <option>Trần Thị Lan</option>
-                                            <option>Cao Ngọc Hiếu</option>
+                                        <select class="form-control form-control-line" name='task-user-id'>
+                                            <c:forEach var="nguoiDung" items="${userList}">
+                                        		<option value="${nguoiDung.id}">${nguoiDung.fullname}</option>
+								        	</c:forEach>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line"> 
+                                        <input type="datetime-local" 
+                                            class="form-control form-control-line" name='task-start-date'> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line"> 
+                                        <input type="datetime-local" 
+                                            class="form-control form-control-line" name='task-end-date'> 
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -183,6 +185,20 @@
                                     </div>
                                 </div>
                             </form>
+                            <c:if test="${isSuccess == true }">
+                            	<h4> Add successful</h4>	
+                            </c:if>
+                            
+                            <c:if test="${isSuccess == false }">
+                            	<h4> Add failed</h4>	
+                            </c:if>
+                            <c:if test="${isSuccess2 == true }">
+                            	<h4> Link successful</h4>	
+                            </c:if>
+                            
+                            <c:if test="${isSuccess2 == false }">
+                            	<h4> Link failed</h4>	
+                            </c:if>
                         </div>
                     </div>
                     <div class="col-md-2 col-12"></div>
