@@ -45,7 +45,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="top-left-part">
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="http://localhost:8080/crmproject/">
                         <b>
                             <img src="plugins/images/pixeladmin-logo.png" alt="home" />
                         </b>
@@ -91,7 +91,7 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                        <a href="http://localhost:8080/crmproject/" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
@@ -142,7 +142,7 @@
                                     <div class="col-md-12">
                                         <select class="form-control form-control-line" name='task-project-id'>
                                         	<c:forEach var="duAn" items="${projectList}">
-                                        		<option value="${duAn.id}">${duAn.ten}</option>
+                                        		<option value="${duAn.id}">${duAn.id}. ${duAn.ten}</option>
 								        	</c:forEach>
                                         </select>
                                     </div>
@@ -159,7 +159,7 @@
                                     <div class="col-md-12">
                                         <select class="form-control form-control-line" name='task-user-id'>
                                             <c:forEach var="nguoiDung" items="${userList}">
-                                        		<option value="${nguoiDung.id}">${nguoiDung.fullname}</option>
+                                        		<option value="${nguoiDung.id}">${nguoiDung.id}. ${nguoiDung.fullname}</option>
 								        	</c:forEach>
                                         </select>
                                     </div>

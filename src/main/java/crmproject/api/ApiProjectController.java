@@ -2,6 +2,7 @@ package crmproject.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import crmproject.entity.DuAn;
 import crmproject.payload.response.BaseResponse;
 import crmproject.service.ProjectService;
 
-@WebServlet(name = "apiProjectController", urlPatterns = {"/api/project/delete", "/api/project/modify"})
+@WebServlet(name = "apiProjectController", urlPatterns = {"/api/project/delete", 
+														  "/api/project/modify",
+														  "/api/project/getall"})
 public class ApiProjectController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -76,6 +80,43 @@ public class ApiProjectController extends HttpServlet{
 			baseResponse.setStatusCode(200);
 			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
 			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/project/getall":
+		{
+			int[] stateArray = {0, 0, 0};
+			List<DuAn> listDuAn = projectService.getProjectTable();
+			for(DuAn duAn: listDuAn)
+			{
+				int key = duAn.getTrangThai().getId();
+				switch (key) {
+				case 1:
+					stateArray[0]++;
+					break;
+				case 2:
+					stateArray[1]++;
+					break;
+				case 3:
+					stateArray[2]++;
+					break;
+				default:
+					break;
+				}
+			}
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage("Success");
+			baseResponse.setData(stateArray);
 			
 			String dataJSON = gson.toJson(baseResponse);
 			

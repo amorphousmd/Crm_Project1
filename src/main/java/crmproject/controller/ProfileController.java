@@ -17,7 +17,7 @@ public class ProfileController extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ProjectService profileService = new ProjectService();
+	private ProjectService projectService = new ProjectService();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -50,12 +50,17 @@ public class ProfileController extends HttpServlet{
 			String projectDescription = req.getParameter("project-description");
 			String projectStartDate = DateConversion.convertDate(req.getParameter("project-start-date"));
 			String projectEndDate = DateConversion.convertDate(req.getParameter("project-end-date"));
-			int idManager = 1;
+			int projectIdManager = 1;
+			try {
+				projectIdManager = Integer.parseInt(req.getParameter("project-id-manager"));
+	        } catch (NumberFormatException e) {
+	            System.out.println("Error: Could not parse the input. Please enter a valid integer.");
+	        }
 			String projectState = req.getParameter("selected-state");
 			
-			boolean isSuccess = profileService.addProject(	projectName, projectDescription, 
+			boolean isSuccess = projectService.addProject(	projectName, projectDescription, 
 															projectStartDate, projectEndDate, 
-															idManager, projectState);
+															projectIdManager, projectState);
 			
 			if (isSuccess) {
 				System.out.println("Insert Successful");
