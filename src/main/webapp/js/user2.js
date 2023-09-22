@@ -60,4 +60,8 @@ $( document ).ready(function (){
 		  });
 	})
 	
+	$('.btn-view').click(function () {
+		var id = $(this).attr("id-user");
+		window.location.href = `http://localhost:8080/crmproject/user-details?id=${id}`;
+	})
 })

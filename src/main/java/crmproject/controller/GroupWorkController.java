@@ -16,7 +16,8 @@ import crmproject.service.UserService;
 
 @WebServlet(name = "groupWorkController", urlPatterns = {"/groupwork", 
 														 "/groupwork-add", 
-														 "/groupwork-details"})
+														 "/groupwork-details",
+														 "/groupwork-assign"})
 public class GroupWorkController extends HttpServlet{
 	/**
 	 * 
@@ -45,6 +46,13 @@ public class GroupWorkController extends HttpServlet{
 			
 		case "/groupwork-details":
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
+			break;
+			
+		case "/groupwork-assign":
+			List<DuAn> listDuAn = projectService.getProjectTable();
+			req.setAttribute("projectList", listDuAn);
+			
+			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
 			break;
 			
 		default:
@@ -91,6 +99,9 @@ public class GroupWorkController extends HttpServlet{
 			
 		case "/groupwork-details":
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
+			break;
+		case "/groupwork-assign":
+			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
 			break;
 		default:
 			break;

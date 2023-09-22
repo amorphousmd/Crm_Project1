@@ -29,6 +29,14 @@ public class UserController extends HttpServlet{
 			break;
 		
 		case "/user-details":
+			int id;
+			try {
+			    id = Integer.parseInt(req.getParameter("id"));
+			} catch (NumberFormatException e) {
+				req.getRequestDispatcher("user-details.jsp").forward(req, resp);
+				break;
+			}
+			System.out.println(id);
 			req.getRequestDispatcher("user-details.jsp").forward(req, resp);
 			break;
 		

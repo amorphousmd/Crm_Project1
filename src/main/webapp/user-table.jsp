@@ -164,7 +164,7 @@
                                     			<td>
 	                                               <a href="#" id-user="${nguoiDung.id}" class="btn btn-sm btn-modify btn-primary">Sửa</a>
 	                                               <a href="#" id-user="${nguoiDung.id}" class="btn btn-sm btn-delete btn-danger">Xóa</a>
-	                                               <a href="user-details" class="btn btn-sm btn-info">Xem</a>
+	                                               <a href="#" id-user="${nguoiDung.id}" class="btn btn-sm btn-view btn-info">Xem</a>
                                             	</td>
                                     		</tr>
                                     	</c:forEach>
@@ -230,7 +230,7 @@
             $('#example').DataTable();
         });
     </script>
-    <script type="text/javascript" src="js/user1.js"></script>
+    <script type="text/javascript" src="js/user2.js"></script>
 </body>
 
 </html>
