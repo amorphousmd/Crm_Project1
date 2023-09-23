@@ -15,15 +15,18 @@ import com.google.gson.Gson;
 import crmproject.entity.DuAn;
 import crmproject.payload.response.BaseResponse;
 import crmproject.service.ProjectService;
+import crmproject.service.ProjectUserService;
 
 @WebServlet(name = "apiProjectController", urlPatterns = {"/api/project/delete", 
 														  "/api/project/modify",
-														  "/api/project/getall"})
+														  "/api/project/getall",
+														  "/api/project/add-users"})
 public class ApiProjectController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	private Gson gson = new Gson();
 	private ProjectService projectService = new ProjectService();
+	private ProjectUserService projectUserService = new ProjectUserService();
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String funcPath = req.getServletPath();
@@ -117,6 +120,46 @@ public class ApiProjectController extends HttpServlet{
 			baseResponse.setStatusCode(200);
 			baseResponse.setMessage("Success");
 			baseResponse.setData(stateArray);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/project/add-users":
+		{
+			String selectedProjectIdStr = req.getParameter("project");
+			int selectedProjectId = 0;
+			try {
+				selectedProjectId = Integer.parseInt(selectedProjectIdStr);
+			} catch (NumberFormatException e) {
+				selectedProjectId = 0;
+			}
+			
+			String input = req.getParameter("user-list");
+			String[] parts = input.split(",");
+			int[] selectedUsers = new int[parts.length];
+
+			for (int i = 0; i < parts.length; i++) {
+				selectedUsers[i] = Integer.parseInt(parts[i]);
+			}
+			
+			boolean isSuccess = false;
+			for (int userId : selectedUsers) {
+				System.out.println(selectedProjectId);
+				System.out.println(userId);
+			    isSuccess = projectUserService.addEntry(selectedProjectId, userId);
+			}
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
 			
 			String dataJSON = gson.toJson(baseResponse);
 			

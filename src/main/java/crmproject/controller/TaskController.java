@@ -17,7 +17,9 @@ import crmproject.service.TaskService;
 import crmproject.service.TaskUserService;
 import crmproject.service.UserService;
 
-@WebServlet(name = "taskController", urlPatterns = {"/task", "/task-add"})
+@WebServlet(name = "taskController", urlPatterns = {"/task",
+													"/task-add",
+													"/task-assign"})
 public class TaskController extends HttpServlet{
 	/**
 	 * 
@@ -33,13 +35,15 @@ public class TaskController extends HttpServlet{
 		String path = req.getServletPath();
 		switch (path) {
 		case "/task":
+		{
 			List<CongViec> listCongViec = taskService.getTaskTable();
 			req.setAttribute("taskList", listCongViec);
 			
 			req.getRequestDispatcher("task.jsp").forward(req, resp);
 			break;
-		
+		}
 		case "/task-add":
+		{
 			List<DuAn> listDuAn = projectService.getProjectTable();
 			req.setAttribute("projectList", listDuAn);
 			
@@ -48,7 +52,18 @@ public class TaskController extends HttpServlet{
 			
 			req.getRequestDispatcher("task-add.jsp").forward(req, resp);
 			break;
+		}	
+		case "/task-assign":
+		{
+			List<CongViec> listCongViec = taskService.getTaskTable();
+			req.setAttribute("taskList", listCongViec);
 			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			
+			req.getRequestDispatcher("task-assign.jsp").forward(req, resp);
+			break;
+		}
 		default:
 			break;
 		}
@@ -59,13 +74,15 @@ public class TaskController extends HttpServlet{
 		String path = req.getServletPath();
 		switch (path) {
 		case "/task":
+		{
 			List<CongViec> listCongViec = taskService.getTaskTable();
 			req.setAttribute("taskList", listCongViec);
 			
 			req.getRequestDispatcher("task.jsp").forward(req, resp);
 			break;
-		
+		}
 		case "/task-add":
+		{
 			int taskProjectId = 1;
 			int taskUserId = 1;
 			req.setCharacterEncoding("UTF-8");
@@ -111,7 +128,18 @@ public class TaskController extends HttpServlet{
 			
 			req.getRequestDispatcher("task-add.jsp").forward(req, resp);
 			break;
+		}
+		case "/task-assign":
+		{
+			List<CongViec> listCongViec = taskService.getTaskTable();
+			req.setAttribute("taskList", listCongViec);
 			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			
+			req.getRequestDispatcher("task-assign.jsp").forward(req, resp);
+			break;
+		}
 		default:
 			break;
 		}

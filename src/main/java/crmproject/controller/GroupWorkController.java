@@ -38,23 +38,28 @@ public class GroupWorkController extends HttpServlet{
 			break;
 		}
 		case "/groupwork-add":
+		{
 			List<NguoiDung> listNguoiDung = userService.getUserTable();
 			req.setAttribute("userList", listNguoiDung);
 			
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
 			break;
-			
+		}	
 		case "/groupwork-details":
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 			break;
 			
 		case "/groupwork-assign":
+		{
 			List<DuAn> listDuAn = projectService.getProjectTable();
 			req.setAttribute("projectList", listDuAn);
 			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			
 			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
 			break;
-			
+		}	
 		default:
 			break;
 		}
@@ -65,12 +70,14 @@ public class GroupWorkController extends HttpServlet{
 		String path = req.getServletPath();
 		switch (path) {
 		case "/groupwork":
+		{
 			List<DuAn> listDuAn = projectService.getProjectTable();
 			req.setAttribute("projectList", listDuAn);
 			req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
 			break;
-		
+		}
 		case "/groupwork-add":
+		{
 			req.setCharacterEncoding("UTF-8");
 			
 			List<NguoiDung> listNguoiDung = userService.getUserTable();
@@ -96,13 +103,24 @@ public class GroupWorkController extends HttpServlet{
 			req.setAttribute("isSuccess", isSuccess);
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
 			break;
-			
+		}	
 		case "/groupwork-details":
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 			break;
 		case "/groupwork-assign":
+		{
+			System.out.println(req.getParameter("project-id"));
+			System.out.println("dsds");
+			System.out.println(req.getParameter("project-id-users"));
+			
+			List<DuAn> listDuAn = projectService.getProjectTable();
+			req.setAttribute("projectList", listDuAn);
+			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
 			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
 			break;
+		}
 		default:
 			break;
 		}
