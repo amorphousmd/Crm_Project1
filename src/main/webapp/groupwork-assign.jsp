@@ -3,7 +3,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-minh">
 
 <head>
     <meta charset="utf-8">
@@ -162,15 +162,15 @@
                                         <input type="datetime-local" class="form-control form-control-line" name='project-end-date'> 
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Người quản lý</label>
-                                    <div class="col-md-12" style="height: 120px;z-index: 999;border: 1px solid black;">
-                                        <select class="form-control form-control-line" name='project-id-manager' id='minh' style="height: 50px">
+                                <div class="form-group" id="form-group-minh">
+                                    <label class="col-md-12 col-md-12-minh">Người quản lý</label>
+                                   	<div class="col-md-12 col-md-12-minh">
+                                        <select class="form-control form-control-line" name='project-id-manager' id='minh'>
                                             <c:forEach var="duAn" items="${projectList}">
                                         		<option value="${duAn.id}">${duAn.id}. ${duAn.ten}</option>
 								        	</c:forEach>
                                         </select>
-                                    </div>
+                                    </div>                                    
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Trạng thái</label>
@@ -223,7 +223,11 @@
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
     <script>
     new MultiSelectTag('minh')  // id
-</script>
+    $("#html-minh").css("font-size", "18px");
+    $("#form-group-minh").css("display", "inline");
+    $(".col-md-12-minh").css("padding-left", "0");
+    $(".col-md-12-minh").css("padding-right", "0");
+ 	</script>
 </body>
 
 </html>
