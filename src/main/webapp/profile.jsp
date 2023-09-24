@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +30,17 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
+<c:set var="listLengthInProgress" value="${fn:length(listProjectInProgress)}" />
+<c:set var="listLengthFinished" value="${fn:length(listProjectFinished)}" />
+<c:set var="listLengthNotStarted" value="${fn:length(listProjectNotStarted)}" />
+
+<c:set var="ratioInProgress" value="${(listLengthInProgress * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+<c:set var="ratioFinished" value="${(listLengthFinished * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+<c:set var="ratioNotStarted" value="${(listLengthNotStarted * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+
+<c:set var="truncatedInProgress" value="${fn:substring(ratioInProgress, 0, fn:indexOf(ratioInProgress, '.'))}" />
+<c:set var="truncatedFinished" value="${fn:substring(ratioFinished, 0, fn:indexOf(ratioFinished, '.'))}" />
+<c:set var="truncatedNotStarted" value="${fn:substring(ratioNotStarted, 0, fn:indexOf(ratioNotStarted, '.'))}" />
 
 <body>
     <!-- Preloader -->
@@ -138,8 +151,8 @@
                                     <div class="user-content">
                                         <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
                                                 class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white">Nguyễn Văn Tèo</h4>
-                                        <h5 class="text-white">info.teo@gmail.com</h5>
+                                        <h4 class="text-white">${user.fullname}</h4>
+                                        <h5 class="text-white">${user.email}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +167,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                            <h3 class="counter text-right m-t-15 text-danger">${truncatedNotStarted}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i data-icon="E" class="linea-icon linea-basic"></i>
@@ -164,7 +177,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-danger" role="progressbar"
                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 20%"></div>
+                                                    style="width: ${truncatedNotStarted}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -176,7 +189,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                            <h3 class="counter text-right m-t-15 text-megna">${truncatedInProgress}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -186,7 +199,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-megna" role="progressbar"
                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 50%"></div>
+                                                    style="width: ${truncatedInProgress}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +211,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                            <h3 class="counter text-right m-t-15 text-primary">${truncatedFinished}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -208,7 +221,7 @@
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-primary" role="progressbar"
                                                     aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 30%"></div>
+                                                    style="width: ${truncatedFinished}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -240,28 +253,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Phân tích dự án</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đã hoàn thành</td>
-                                            <td>
-                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Thiết kế database</td>
-                                            <td>Dự án CRM</td>
-                                            <td>22/05/2019</td>
-                                            <td>30/05/2019</td>
-                                            <td>Đang thực hiện</td>
-                                            <td>
-                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
-                                            </td>
-                                        </tr>
+                                    	<c:forEach var="duAn" items="${projectList}">
+                                    		<tr>
+	                                            <td>${duAn.id}</td>
+	                                            <td>${duAn.ten}</td>
+	                                            <td>${duAn.mota}</td>
+	                                            <td>${duAn.ngayBatDau}</td>
+	                                            <td>${duAn.ngayKetThuc}</td>
+	                                            <td>
+											    ${duAn.trangThai.id eq 1 ? 'Đang Thực Hiện' 
+											        : (duAn.trangThai.id eq 2 ? 'Đã Hoàn Thành' 
+											            : (duAn.trangThai.id eq 3 ? 'Chưa Thực Hiện' : 'Không Xác Định'))}
+												</td>
+	                                            <td>
+	                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
+	                                            </td>
+                                        	</tr>                           
+                            			</c:forEach>
                                     </tbody>
                                 </table>
                             </div>

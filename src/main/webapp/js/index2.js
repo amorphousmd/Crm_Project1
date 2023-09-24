@@ -12,5 +12,15 @@ $( document ).ready(function (){
 		  notStartedValue.innerText = stateArray[0];
 		  inProgressValue.innerText = stateArray[1];
 		  finishedValue.innerText = stateArray[2];
+		  
+		  let total = stateArray[0] + stateArray[1] + stateArray[2];
+
+		  let notStartedRatio = Math.round((stateArray[0] / total) * 100);
+		  let inProgressRatio = Math.round((stateArray[1] / total) * 100);
+		  let finishedRatio = Math.round((stateArray[2] / total) * 100);
+		
+		  $("#progress-bar-not-started").css("width", notStartedRatio.toString() + "%");
+		  $("#progress-bar-in-progress").css("width", inProgressRatio.toString() + "%");
+		  $("#progress-bar-finished").css("width", finishedRatio.toString() + "%");
 	  });
 })
