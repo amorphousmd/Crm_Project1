@@ -1,12 +1,16 @@
 package crmproject.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import crmproject.entity.DuAn;
+import crmproject.repository.DuAnNguoiDungRepository;
 import crmproject.repository.DuAnRepository;
 
 public class ProjectService {
 	private DuAnRepository duAnRepository = new DuAnRepository();
+	private DuAnNguoiDungRepository duAnNguoiDungRepository = new DuAnNguoiDungRepository();
+	
 	// Grab all table entries service.
 	public List<DuAn> getProjectTable() {
 		List<DuAn> listDuAn = duAnRepository.findAll();
@@ -19,6 +23,16 @@ public class ProjectService {
 		int count = duAnRepository.deleteAtId(id);
 		
 		return count > 0;
+	}
+	
+	// Grab all entries with the specified user ID.
+	public List<DuAn> getProjectsWithUserId(int id) {
+		List<DuAn> listDuAn = new ArrayList<DuAn>();
+		List<Integer> projectIdsList = duAnNguoiDungRepository.findAllIdWithUserId(id);
+		for (Integer projectId : projectIdsList) {
+			listDuAn.add(duAnRepository.findAtId(projectId));
+        }
+		return listDuAn;
 	}
 	
 	// Add profile service.

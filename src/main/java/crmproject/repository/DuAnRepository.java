@@ -107,6 +107,39 @@ public class DuAnRepository {
 		return count;
 	}
 	
+	public DuAn findAtId(int id) {
+		DuAn duAn = new DuAn();
+		
+		String query = "SELECT * FROM duan d \r\n"
+				+ "WHERE id = ?;";
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {				
+				duAn.setId(resultSet.getInt("id"));
+				duAn.setTen(resultSet.getString("ten"));
+				duAn.setMota(resultSet.getString("mota"));
+				duAn.setNgayBatDau(resultSet.getString("ngayBatDau"));
+				duAn.setNgayKetThuc(resultSet.getString("ngayKetThuc"));
+				NguoiDung nguoiDung = new NguoiDung();
+				nguoiDung.setId(resultSet.getInt("id_nguoiquanly"));
+				duAn.setNguoiQuanLy(nguoiDung);
+				TrangThai trangThai = new TrangThai();
+				trangThai.setId(resultSet.getInt("id_trangthai"));
+				duAn.setTrangThai(trangThai);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return duAn;
+	}
 	
 	public int modifyAtId(	int id, String ten,
 							String mota, String ngayBatDau, 

@@ -30,6 +30,7 @@ public class GroupWorkController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String path = req.getServletPath();
 		switch (path) {
+		
 		case "/groupwork":
 		{
 			List<DuAn> listDuAn = projectService.getProjectTable();
@@ -37,6 +38,7 @@ public class GroupWorkController extends HttpServlet{
 			req.getRequestDispatcher("groupwork.jsp").forward(req, resp);
 			break;
 		}
+		
 		case "/groupwork-add":
 		{
 			List<NguoiDung> listNguoiDung = userService.getUserTable();
@@ -44,7 +46,8 @@ public class GroupWorkController extends HttpServlet{
 			
 			req.getRequestDispatcher("groupwork-add.jsp").forward(req, resp);
 			break;
-		}	
+		}
+		
 		case "/groupwork-details":
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 			break;
@@ -59,7 +62,8 @@ public class GroupWorkController extends HttpServlet{
 			
 			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
 			break;
-		}	
+		}
+		
 		default:
 			break;
 		}
