@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +31,18 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
+<c:set var="listLengthInProgress" value="${fn:length(listProjectInProgress)}" />
+<c:set var="listLengthFinished" value="${fn:length(listProjectFinished)}" />
+<c:set var="listLengthNotStarted" value="${fn:length(listProjectNotStarted)}" />
+
+<c:set var="ratioInProgress" value="${(listLengthInProgress * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+<c:set var="ratioFinished" value="${(listLengthFinished * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+<c:set var="ratioNotStarted" value="${(listLengthNotStarted * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+
+<c:set var="truncatedInProgress" value="${fn:substring(ratioInProgress, 0, fn:indexOf(ratioInProgress, '.'))}" />
+<c:set var="truncatedFinished" value="${fn:substring(ratioFinished, 0, fn:indexOf(ratioFinished, '.'))}" />
+<c:set var="truncatedNotStarted" value="${fn:substring(ratioNotStarted, 0, fn:indexOf(ratioNotStarted, '.'))}" />
+
 
 <body>
     <!-- Preloader -->
@@ -136,8 +151,8 @@
                                     <div class="user-content">
                                         <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
                                                 class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white">Nguyễn Văn Tèo</h4>
-                                        <h5 class="text-white">info.teo@gmail.com</h5>
+                                            <h4 class="text-white">${user.fullname}</h4>
+                                        	<h5 class="text-white">${user.email}</h5>                                        
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +167,7 @@
 			<div class="white-box">
 				<div class="col-in row">
 					<div class="col-xs-12">
-						<h3 class="counter text-right m-t-15 text-danger">20%</h3>
+						<h3 class="counter text-right m-t-15 text-danger">${truncatedNotStarted}%</h3>
                     </div>
                     <div class="col-xs-12">
 						<i data-icon="E" class="linea-icon linea-basic"></i>
@@ -162,7 +177,7 @@
 						<div class="progress">
 							<div class="progress-bar progress-bar-danger" role="progressbar"
 								aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-								style="width: 20%"></div>
+								style="width: ${truncatedNotStarted}%"></div>
 						</div>
 					</div>
 				</div>
@@ -174,7 +189,7 @@
 			<div class="white-box">
 				<div class="col-in row">
 					<div class="col-xs-12">
-						<h3 class="counter text-right m-t-15 text-megna">50%</h3>
+						<h3 class="counter text-right m-t-15 text-megna">${truncatedInProgress}%</h3>
                     </div>
                     <div class="col-xs-12">
 						<i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -184,7 +199,7 @@
 						<div class="progress">
 							<div class="progress-bar progress-bar-megna" role="progressbar"
 								aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-								style="width: 50%"></div>
+								style="width: ${truncatedInProgress}%"></div>
 						</div>
 					</div>
 				</div>
@@ -196,7 +211,7 @@
 			<div class="white-box">
 				<div class="col-in row">
 					<div class="col-xs-12">
-						<h3 class="counter text-right m-t-15 text-primary">30%</h3>
+						<h3 class="counter text-right m-t-15 text-primary">${truncatedFinished}%</h3>
                     </div>
                     <div class="col-xs-12">
 						<i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -206,7 +221,7 @@
 						<div class="progress">
 							<div class="progress-bar progress-bar-primary" role="progressbar"
 								aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-								style="width: 30%"></div>
+								style="width: ${truncatedFinished}%"></div>
 						</div>
 					</div>
 				</div>
@@ -225,23 +240,18 @@
                     <div class="col-md-4">
                         <div class="white-box">
                             <h3 class="box-title">Chưa thực hiện</h3>
+                            	
                             <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Phân tích hệ thống</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a> 
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Thiết kế database</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a>
+                            	<c:forEach var="duAn" items="${listProjectNotStarted}">
+                            		<a href="#">
+	                                 	<div class="mail-contnet">
+	                                        <h5>${duAn.ten}</h5>
+	                                        <span class="mail-desc"></span>
+	                                        <span class="time">${duAn.ngayBatDau}</span>
+	                                        <span class="time">${duAn.ngayKetThuc}</span>
+	                                    </div>
+                                    </a> 
+                            	</c:forEach>
                             </div>
                         </div>
                     </div>
@@ -249,22 +259,16 @@
                         <div class="white-box">
                             <h3 class="box-title">Đang thực hiện</h3>
                             <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Phân tích hệ thống</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a> 
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Thiết kế database</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a>
+                            	<c:forEach var="duAn" items="${listProjectInProgress}">
+                            		<a href="#">
+	                                 	<div class="mail-contnet">
+	                                        <h5>${duAn.ten}</h5>
+	                                        <span class="mail-desc"></span>
+	                                        <span class="time">${duAn.ngayBatDau}</span>
+	                                        <span class="time">${duAn.ngayKetThuc}</span>
+	                                    </div>
+                                    </a> 
+                            	</c:forEach>
                             </div>
                         </div>
                     </div>
@@ -272,22 +276,16 @@
                         <div class="white-box">
                             <h3 class="box-title">Đã hoàn thành</h3>
                             <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Phân tích hệ thống</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a> 
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Thiết kế database</h5>
-                                        <span class="mail-desc"></span>
-                                        <span class="time">Bắt đầu: 05/07/2020</span>
-                                        <span class="time">Kết thúc: 17/07/2020</span>
-                                    </div>
-                                </a>
+                            	<c:forEach var="duAn" items="${listProjectFinished}">
+                            		<a href="#">
+	                                 	<div class="mail-contnet">
+	                                        <h5>${duAn.ten}</h5>
+	                                        <span class="mail-desc"></span>
+	                                        <span class="time">${duAn.ngayBatDau}</span>
+	                                        <span class="time">${duAn.ngayKetThuc}</span>
+	                                    </div>
+                                    </a> 
+                            	</c:forEach>                               
                             </div>
                         </div>
                     </div>

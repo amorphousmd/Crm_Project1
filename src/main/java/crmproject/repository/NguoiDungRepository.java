@@ -110,7 +110,7 @@ public class NguoiDungRepository {
 				nguoiDung.setEmail(resultSet.getString("email"));
 				
 				LoaiThanhVien loaiThanhVien = new LoaiThanhVien();
-				loaiThanhVien.setTen(resultSet.getString("ten"));
+				loaiThanhVien.setId(resultSet.getInt("id_loaithanhvien"));
 				nguoiDung.setLoaiThanhVien(loaiThanhVien);
 				
 				listNguoiDung.add(nguoiDung);
@@ -176,5 +176,36 @@ public class NguoiDungRepository {
 		}
 		
 		return count;
+	}
+	
+	public NguoiDung findAtId(int id) {
+		NguoiDung nguoiDung = new NguoiDung();
+		
+		String query = "SELECT * FROM nguoidung d \r\n"
+				+ "WHERE id = ?;";
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				nguoiDung.setId(resultSet.getInt("id"));
+				nguoiDung.setFullname(resultSet.getString("fullname"));
+				nguoiDung.setEmail(resultSet.getString("email"));
+				
+				LoaiThanhVien loaiThanhVien = new LoaiThanhVien();
+				loaiThanhVien.setId(resultSet.getInt("id_loaithanhvien"));
+				nguoiDung.setLoaiThanhVien(loaiThanhVien);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return nguoiDung;
 	}
 }

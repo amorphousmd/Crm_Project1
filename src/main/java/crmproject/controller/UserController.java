@@ -41,12 +41,20 @@ public class UserController extends HttpServlet{
 				req.getRequestDispatcher("user-details.jsp").forward(req, resp);
 				break;
 			}
-			System.out.println(id);
-			List<DuAn> listDuAn = projectService.getProjectsWithUserId(id);
-			for(DuAn duAn : listDuAn)
-			{
-				System.out.println(duAn.getId());
-			}
+			
+			List<List<DuAn>> listDuAnSorted = projectService.getSortedProjectsWithUserId(id);
+			List<DuAn> listDuAnInProgress = listDuAnSorted.get(0);
+			List<DuAn> listDuAnFinished = listDuAnSorted.get(1);
+			List<DuAn> listDuAnNotStarted = listDuAnSorted.get(2);
+			
+			req.setAttribute("listProjectInProgress", listDuAnInProgress);
+			req.setAttribute("listProjectFinished", listDuAnFinished);
+			req.setAttribute("listProjectNotStarted", listDuAnNotStarted);
+			
+			NguoiDung nguoiDung = userService.getUserAtId(id);
+			System.out.println(nguoiDung.getFullname());
+			req.setAttribute("user", nguoiDung);
+			
 			req.getRequestDispatcher("user-details.jsp").forward(req, resp);
 			break;
 		

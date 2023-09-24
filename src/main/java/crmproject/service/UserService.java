@@ -25,6 +25,13 @@ public class UserService {
 		return listNguoiDung;
 	}
 	
+	// Find an users.
+	public NguoiDung getUserAtId(int id) {
+		NguoiDung nguoiDung = nguoiDungRepository.findAtId(id);
+		
+		return nguoiDung;
+	}
+	
 	// Delete an entry from table by ID.
 	public boolean deleteUserById(int id) {
 		int count = nguoiDungRepository.deleteAtId(id);

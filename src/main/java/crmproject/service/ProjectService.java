@@ -35,6 +35,44 @@ public class ProjectService {
 		return listDuAn;
 	}
 	
+	public List<List<DuAn>> getSortedProjectsWithUserId(int id) {
+		List<List<DuAn>> listDuAnSorted = new ArrayList<List<DuAn>>();
+		List<DuAn> listDuAnInProgress = new ArrayList<DuAn>();
+		List<DuAn> listDuAnFinished = new ArrayList<DuAn>();
+		List<DuAn> listDuAnNotStarted = new ArrayList<DuAn>();
+		List<Integer> projectIdsList = duAnNguoiDungRepository.findAllIdWithUserId(id);
+		for (Integer projectId : projectIdsList) {
+			DuAn duAn = duAnRepository.findAtId(projectId);
+			int projectStatus = duAn.getTrangThai().getId();
+			switch (projectStatus) {
+			
+			case 1:
+			{
+				listDuAnInProgress.add(duAn);
+				break;
+			}
+			
+			case 2:
+			{
+				listDuAnFinished.add(duAn);
+				break;
+			}
+			
+			case 3:
+			{
+				listDuAnNotStarted.add(duAn);
+				break;
+			}
+			default:
+				break;
+			}
+        }
+		listDuAnSorted.add(0,listDuAnInProgress);
+		listDuAnSorted.add(1,listDuAnFinished);
+		listDuAnSorted.add(2,listDuAnNotStarted);
+		return listDuAnSorted;
+	}
+	
 	// Add profile service.
 	public boolean addProject(	String ten, String mota,
 								String ngayBatDau, String ngayKetThuc, 
