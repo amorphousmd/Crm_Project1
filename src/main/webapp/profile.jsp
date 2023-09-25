@@ -23,6 +23,7 @@
     <link href="css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    <link rel="stylesheet" href="./css/custom-popup2.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -266,7 +267,7 @@
 											            : (duAn.trangThai.id eq 3 ? 'Chưa Thực Hiện' : 'Không Xác Định'))}
 												</td>
 	                                            <td>
-	                                                <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
+	                                                <a id-project="${duAn.id}" class="btn btn-sm btn-primary btn-modify">Cập nhật</a>
 	                                            </td>
                                         	</tr>                           
                             			</c:forEach>
@@ -274,6 +275,41 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="popup" id="popup">
+                     	<h2>Nhập thông tin bạn cần thay đổi</h2>
+                  		<form action="" method="get" class="form-popup">
+                     		<div class="input-container">
+		            		  	
+							  	<div class="form-popup">
+							    	<label for="popup-input-project-start-date">Start Date: </label>
+							    	<input id="popup-input-project-start-date" type="datetime-local" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-project-end-date">End Date: </label>
+							    	<input id="popup-input-project-end-date" type="datetime-local" name="description" id="description" />
+							  	</div>
+							  	<div class="form-group">
+							  		<label for="popup-input-project-end-date">Status: </label>
+                                    <select id="popup-input-project-status" name='user-selected-location' style="height:30px">
+                                        <option value=3>Chưa Bắt Đầu</option>
+                                        <option value=1>Đang Thực Hiện</option>
+                                        <option value=2>Đã Hoàn Thành</option>
+                                    </select>
+                                </div>
+							  	<!-- <div class="form-popup">
+							    	<label for="popup-input-phone">Phone: </label>
+							    	<input id="popup-input-phone"type="text" name="description" id="description" />
+							  	</div>
+							  	<div class="form-popup">
+							    	<label for="popup-input-rolenum">Role Num: </label>
+							    	<input id="popup-input-rolenum"type="text" name="description" id="description" />
+							  	</div> -->
+                     		 	</div>  
+							  	<div class="form-popup">
+							  		<input class="btn-xacnhan" type="button" name="submit" value="Xác nhận" />
+							  	</div>
+						</form>
+                	</div>
                     </div>
                 </div>
                 <!-- END DANH SÁCH CÔNG VIỆC -->
@@ -296,6 +332,7 @@
     <script src="js/waves.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
+    <script type="text/javascript" src="js/profile1.js"></script>
 </body>
 
 </html>

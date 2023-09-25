@@ -39,36 +39,36 @@ public class DuAnNguoiDungRepository {
 	}
 	
 	// Find all projects with the specified user ID.
-		public List<Integer> findAllIdWithUserId(int id) {
-			String query = "SELECT * FROM duan_nguoidung dn \r\n"
-					+ "WHERE id_nguoidung = ?;";
+	public List<Integer> findAllIdWithUserId(int id) {
+		String query = "SELECT * FROM duan_nguoidung dn \r\n"
+				+ "WHERE id_nguoidung = ?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		List<Integer> listDuAnId = new ArrayList<Integer>();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
 			
-			Connection connection = MysqlConfig.getConnection();
-			List<Integer> listDuAnId = new ArrayList<Integer>();
+			ResultSet resultSet = statement.executeQuery();
 			
-			try {
-				PreparedStatement statement = connection.prepareStatement(query);
-				statement.setInt(1, id);
-				
-				ResultSet resultSet = statement.executeQuery();
-				
-				while (resultSet.next()) {
-					int projectId = resultSet.getInt("id_duan");
-					listDuAnId.add(projectId);
-				}
-				
-			} catch (SQLException e) {
-				System.out.println("Query execution error" + e.getLocalizedMessage());
-			} finally {
-				if (connection != null) {
-					try {
-						connection.close();
-					} catch (SQLException e) {
-						System.out.println("Error closing connection." + e.getLocalizedMessage());
-					}
-				}
+			while (resultSet.next()) {
+				int projectId = resultSet.getInt("id_duan");
+				listDuAnId.add(projectId);
 			}
 			
-			return listDuAnId;
+		} catch (SQLException e) {
+			System.out.println("Query execution error" + e.getLocalizedMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					System.out.println("Error closing connection." + e.getLocalizedMessage());
+				}
+			}
 		}
+		
+		return listDuAnId;
+	}
 }

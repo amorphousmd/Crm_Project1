@@ -49,9 +49,22 @@ public class GroupWorkController extends HttpServlet{
 		}
 		
 		case "/groupwork-details":
+		{
+			List<DuAn> listDuAn = projectService.getProjectTable();
+
+			List<List<DuAn>> listDuAnSorted = projectService.getProjectTableSorted();
+			List<DuAn> listDuAnInProgress = listDuAnSorted.get(0);
+			List<DuAn> listDuAnFinished = listDuAnSorted.get(1);
+			List<DuAn> listDuAnNotStarted = listDuAnSorted.get(2);
+			
+			req.setAttribute("projectList", listDuAn);
+			req.setAttribute("listProjectInProgress", listDuAnInProgress);
+			req.setAttribute("listProjectFinished", listDuAnFinished);
+			req.setAttribute("listProjectNotStarted", listDuAnNotStarted);
+			
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 			break;
-			
+		}	
 		case "/groupwork-assign":
 		{
 			List<DuAn> listDuAn = projectService.getProjectTable();

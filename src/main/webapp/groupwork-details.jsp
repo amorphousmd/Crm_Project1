@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +37,19 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
+
+<c:set var="listLengthInProgress" value="${fn:length(listProjectInProgress)}" />
+<c:set var="listLengthFinished" value="${fn:length(listProjectFinished)}" />
+<c:set var="listLengthNotStarted" value="${fn:length(listProjectNotStarted)}" />
+
+<c:set var="ratioInProgress" value="${(listLengthInProgress * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+<c:set var="ratioFinished" value="${(listLengthFinished * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+<c:set var="ratioNotStarted" value="${(listLengthNotStarted * 100) / (listLengthInProgress + listLengthFinished + listLengthNotStarted)}" />
+
+<c:set var="truncatedInProgress" value="${fn:substring(ratioInProgress, 0, fn:indexOf(ratioInProgress, '.'))}" />
+<c:set var="truncatedFinished" value="${fn:substring(ratioFinished, 0, fn:indexOf(ratioFinished, '.'))}" />
+<c:set var="truncatedNotStarted" value="${fn:substring(ratioNotStarted, 0, fn:indexOf(ratioNotStarted, '.'))}" />
+
 
 <body>
     <!-- Preloader -->
@@ -150,12 +166,12 @@
                                     <h5 class="text-muted vb">CHƯA BẮT ĐẦU</h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                    <h3 class="counter text-right m-t-15 text-danger">${truncatedNotStarted}%</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-danger" role="progressbar"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${truncatedNotStarted}%">
                                         </div>
                                     </div>
                                 </div>
@@ -172,12 +188,12 @@
                                     <h5 class="text-muted vb">ĐANG THỰC HIỆN</h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                    <h3 class="counter text-right m-t-15 text-megna">${truncatedInProgress}%</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-megna" role="progressbar"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${truncatedInProgress}%">
                                         </div>
                                     </div>
                                 </div>
@@ -194,12 +210,12 @@
                                     <h5 class="text-muted vb">HOÀN THÀNH</h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                    <h3 class="counter text-right m-t-15 text-primary">${truncatedFinished}%</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-primary" role="progressbar"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: ${truncatedFinished}%">
                                         </div>
                                     </div>
                                 </div>

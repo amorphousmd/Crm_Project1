@@ -16,7 +16,8 @@ import crmproject.service.TaskService;
 import crmproject.service.TaskUserService;
 
 @WebServlet(name = "apiTaskController", urlPatterns = {"/api/task/delete", 
-													   "/api/task/modify", 
+													   "/api/task/modify",
+													   "/api/task/modify-user-level",
 													   "/api/task/add-users"})
 public class ApiTaskController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -75,6 +76,37 @@ public class ApiTaskController extends HttpServlet{
 																modifiedDescription, modifiedStartDate, 
 																modifiedEndDate, modifiedProjectNum, 
 																modifiedStatusNum);
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/task/modify-user-level":
+		{
+			int id = Integer.parseInt(req.getParameter("id"));
+			String modifiedStartDate = req.getParameter("startDate");
+			String modifiedEndDate = req.getParameter("endDate");
+			String statusNum = req.getParameter("statusNum");
+			int modifiedStatusNum = 1;
+			try {
+				modifiedStatusNum = Integer.parseInt(statusNum);
+			} catch (NumberFormatException e) {
+				modifiedStatusNum = 1;
+			}
+			
+			boolean isSuccess = taskService.modifyUserByIdUserLevel(	id, modifiedStartDate, 
+																		modifiedEndDate, modifiedStatusNum);
 			
 			BaseResponse baseResponse = new BaseResponse();
 			baseResponse.setStatusCode(200);

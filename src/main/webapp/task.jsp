@@ -145,7 +145,7 @@
                                         <tr>
                                             <th>STT</th>
                                             <th>Tên Công Việc</th>
-                                            <th>Dự Án</th>
+                                            <th>ID Dự Án</th>
                                             <th>Người Thực Hiện</th>
                                             <th>Ngày Bắt Đầu</th>
                                             <th>Ngày Kết Thúc</th>
@@ -166,7 +166,6 @@
 								                <td>
 								                   	<a href="#" id-user="${congViec.id}" class="btn btn-sm btn-modify btn-primary">Sửa</a>
 	                                               	<a href="#" id-user="${congViec.id}" class="btn btn-sm btn-delete btn-danger">Xóa</a>
-	                                               	<a href="user-details" class="btn btn-sm btn-info">Xem</a>
 								                </td>
 								            </tr>
 								        </c:forEach>                                    

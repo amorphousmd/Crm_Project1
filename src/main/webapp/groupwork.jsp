@@ -160,7 +160,7 @@
 								                <td>
 								                   	<a href="#" id-user="${duAn.id}" class="btn btn-sm btn-modify btn-primary">Sửa</a>
 	                                               	<a href="#" id-user="${duAn.id}" class="btn btn-sm btn-delete btn-danger">Xóa</a>
-	                                               	<a href="user-details" class="btn btn-sm btn-info">Xem</a>
+	                                               	<a href="http://localhost:8080/crmproject/groupwork-details" class="btn btn-sm btn-info">Xem</a>
 								                </td>
 								            </tr>
 								        </c:forEach>
@@ -193,11 +193,11 @@
 							    	<label for="popup-input-rolenum">Role Num: </label>
 							    	<input id="popup-input-rolenum"type="text" name="description" id="description" />
 							  	</div> -->
-                     		 </div>  
-					  <div class="form-popup">
-					  	<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
-					  </div>
-					</form>
+                     		 	</div>  
+							  	<div class="form-popup">
+							  		<input class="btn-xacnhan" type="submit" name="submit" value="Xác nhận" />
+							  	</div>
+						</form>
                 	</div>
                 </div>
                 <!-- /.row -->

@@ -172,4 +172,30 @@ public class DuAnRepository {
 		
 		return count;
 	}
+	
+	public int modifyAtIdUserLevel(	int id, String ngayBatDau, 
+									String ngayKetThuc, int id_trangthai) {
+	
+		int count = 0;
+		String query = "UPDATE duan \r\n"
+				+ "SET ngayBatDau=?, ngayKetThuc=?, id_trangthai=? \r\n"
+				+ "WHERE id=?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+		PreparedStatement statement = connection.prepareStatement(query);
+		
+		statement.setString(1, ngayBatDau);
+		statement.setString(2, ngayKetThuc);
+		statement.setInt(3, id_trangthai);
+		statement.setInt(4, id);
+	
+		count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }

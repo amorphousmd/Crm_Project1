@@ -18,6 +18,45 @@ public class ProjectService {
 		return listDuAn;
 	}
 	
+	// Grab all table entries service. (Sorted in types)
+	public List<List<DuAn>> getProjectTableSorted() {
+		List<DuAn> listDuAnUnSorted = duAnRepository.findAll();
+		List<List<DuAn>> listDuAnSorted = new ArrayList<List<DuAn>>();
+		List<DuAn> listDuAnInProgress = new ArrayList<DuAn>();
+		List<DuAn> listDuAnFinished = new ArrayList<DuAn>();
+		List<DuAn> listDuAnNotStarted = new ArrayList<DuAn>();
+		
+		for (DuAn duAn : listDuAnUnSorted) {
+			int projectStatus = duAn.getTrangThai().getId();
+			switch (projectStatus) {
+			
+			case 1:
+			{
+				listDuAnInProgress.add(duAn);
+				break;
+			}
+			
+			case 2:
+			{
+				listDuAnFinished.add(duAn);
+				break;
+			}
+			
+			case 3:
+			{
+				listDuAnNotStarted.add(duAn);
+				break;
+			}
+			default:
+				break;
+			}
+        }
+		listDuAnSorted.add(0,listDuAnInProgress);
+		listDuAnSorted.add(1,listDuAnFinished);
+		listDuAnSorted.add(2,listDuAnNotStarted);
+		return listDuAnSorted;
+	}
+	
 	// Delete an entry from table by ID.
 	public boolean deleteRoleById(int id) {
 		int count = duAnRepository.deleteAtId(id);
@@ -112,6 +151,15 @@ public class ProjectService {
 												mota, ngayBatDau, 
 												ngayKetThuc, id_nguoiquanly,
 												id_trangthai);
+		return count > 0;
+	}
+	
+	// Modify an entry from table by ID. (User Level)
+	public boolean modifyUserByIdUserLevel(	int id, String ngayBatDau, 
+											String ngayKetThuc, int id_trangthai ) {
+		
+		int count = duAnRepository.modifyAtIdUserLevel(	id, ngayBatDau, 
+														ngayKetThuc, id_trangthai);
 		return count > 0;
 	}
 }

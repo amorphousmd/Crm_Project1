@@ -55,6 +55,40 @@ public class CongViecRepository {
 		return listCongViec;
 	}
 	
+	public CongViec findAtId(int id) {
+		CongViec congViec = new CongViec();
+		
+		String query = "SELECT * FROM congviec c \r\n"
+				+ "WHERE id = ?;";
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id);
+			
+			ResultSet resultSet = statement.executeQuery();
+			
+			while (resultSet.next()) {
+				congViec.setId(resultSet.getInt("id"));
+				congViec.setTen(resultSet.getString("ten"));
+				congViec.setMota(resultSet.getString("mota"));
+				congViec.setNgayBatDau(resultSet.getString("ngayBatDau"));
+				congViec.setNgayKetThuc(resultSet.getString("ngayKetThuc"));
+				DuAn duAn = new DuAn();
+				duAn.setId(resultSet.getInt("id_duan"));
+				congViec.setDuAn(duAn);
+				TrangThai trangThai = new TrangThai();
+				trangThai.setId(resultSet.getInt("id_trangthai"));
+				congViec.setTrangThai(trangThai);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return congViec;
+	}
+	
 	// Delete a row from table, specified by the ID.
 	public int deleteAtId(int id) {
 		int count = 0;
@@ -165,5 +199,73 @@ public class CongViecRepository {
 		}
 		
 		return maxId;
+	}
+	
+	public List<CongViec> findUnderProject(int projectID) {
+		String query = "SELECT * FROM congviec c \r\n"
+				+ "WHERE id_duan = ?";
+		Connection connection = MysqlConfig.getConnection();
+		List<CongViec> listCongViec = new ArrayList<CongViec>();
+		
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, projectID);
+			
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				CongViec congViec = new CongViec();
+				congViec.setId(resultSet.getInt("id"));
+				congViec.setTen(resultSet.getString("ten"));
+				congViec.setMota(resultSet.getString("mota"));
+				congViec.setNgayBatDau(resultSet.getString("ngayBatDau"));
+				congViec.setNgayKetThuc(resultSet.getString("ngayKetThuc"));
+				DuAn duAn = new DuAn();
+				duAn.setId(resultSet.getInt("id_duan"));
+				congViec.setDuAn(duAn);
+				TrangThai trangThai = new TrangThai();
+				trangThai.setId(resultSet.getInt("id_trangthai"));
+				congViec.setTrangThai(trangThai);
+				listCongViec.add(congViec);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Query execution error" + e.getLocalizedMessage());
+		} finally {
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					System.out.println("Error closing connection." + e.getLocalizedMessage());
+				}
+			}
+		}
+		
+		return listCongViec;
+	}
+	
+	public int modifyAtIdUserLevel(	int id, String ngayBatDau, 
+			String ngayKetThuc, int id_trangthai) {
+
+		int count = 0;
+		String query = "UPDATE congviec \r\n"
+		+ "SET ngayBatDau=?, ngayKetThuc=?, id_trangthai=? \r\n"
+		+ "WHERE id=?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+		PreparedStatement statement = connection.prepareStatement(query);
+		
+		statement.setString(1, ngayBatDau);
+		statement.setString(2, ngayKetThuc);
+		statement.setInt(3, id_trangthai);
+		statement.setInt(4, id);
+		
+		count = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return count;
 	}
 }

@@ -19,6 +19,7 @@ import crmproject.service.ProjectUserService;
 
 @WebServlet(name = "apiProjectController", urlPatterns = {"/api/project/delete", 
 														  "/api/project/modify",
+														  "/api/project/modify-user-level",
 														  "/api/project/getall",
 														  "/api/project/add-users"})
 public class ApiProjectController extends HttpServlet{
@@ -78,6 +79,37 @@ public class ApiProjectController extends HttpServlet{
 																modifiedDescription, modifiedStartDate, 
 																modifiedEndDate, modifiedManagerNum, 
 																modifiedStatusNum);
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/project/modify-user-level":
+		{
+			int id = Integer.parseInt(req.getParameter("id"));
+			String modifiedStartDate = req.getParameter("startDate");
+			String modifiedEndDate = req.getParameter("endDate");
+			String statusNum = req.getParameter("statusNum");
+			int modifiedStatusNum = 1;
+			try {
+				modifiedStatusNum = Integer.parseInt(statusNum);
+			} catch (NumberFormatException e) {
+				modifiedStatusNum = 1;
+			}
+			
+			boolean isSuccess = projectService.modifyUserByIdUserLevel(	id, modifiedStartDate, 
+																		modifiedEndDate, modifiedStatusNum);
 			
 			BaseResponse baseResponse = new BaseResponse();
 			baseResponse.setStatusCode(200);
