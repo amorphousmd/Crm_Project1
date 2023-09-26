@@ -1,6 +1,7 @@
 package crmproject.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import crmproject.entity.CongViec;
+import crmproject.entity.DetailRow;
 import crmproject.entity.DuAn;
 import crmproject.entity.NguoiDung;
 import crmproject.service.ProjectService;
+import crmproject.service.TaskService;
 import crmproject.service.UserService;
 
 @WebServlet(name = "groupWorkController", urlPatterns = {"/groupwork", 
@@ -25,6 +29,7 @@ public class GroupWorkController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private ProjectService projectService = new ProjectService();
 	private UserService userService = new UserService();
+	private TaskService taskService = new TaskService();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,10 +62,25 @@ public class GroupWorkController extends HttpServlet{
 			List<DuAn> listDuAnFinished = listDuAnSorted.get(1);
 			List<DuAn> listDuAnNotStarted = listDuAnSorted.get(2);
 			
+			List<DetailRow> listDetailRow = new ArrayList<DetailRow>();
+			for (DuAn duAn : listDuAn) {
+				List<List<CongViec>> listCongViecSorted = 
+						taskService.getTaskTableUnderProjectSorted(duAn.getId());
+				List<CongViec> listCongViecInProgress = listCongViecSorted.get(0);
+				List<CongViec> listCongViecFinished = listCongViecSorted.get(1);
+				List<CongViec> listCongViecNotStarted = listCongViecSorted.get(2);
+				DetailRow detailRow = new DetailRow(duAn, 
+													listCongViecInProgress, 
+													listCongViecFinished, 
+													listCongViecNotStarted);
+				listDetailRow.add(detailRow);
+			}
+			
 			req.setAttribute("projectList", listDuAn);
 			req.setAttribute("listProjectInProgress", listDuAnInProgress);
 			req.setAttribute("listProjectFinished", listDuAnFinished);
 			req.setAttribute("listProjectNotStarted", listDuAnNotStarted);
+			req.setAttribute("listDetailRow", listDetailRow);
 			
 			req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
 			break;

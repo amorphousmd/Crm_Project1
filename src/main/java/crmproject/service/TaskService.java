@@ -18,7 +18,7 @@ public class TaskService {
 	}
 	
 	// Grab all table entries service. (Sorted in types)
-	public List<List<CongViec>> getProjectTableSorted() {
+	public List<List<CongViec>> getTaskTableSorted() {
 		List<CongViec> listCongViecUnSorted = congViecRepository.findAll();
 		List<List<CongViec>> listCongViecSorted = new ArrayList<List<CongViec>>();
 		List<CongViec> listCongViecInProgress = new ArrayList<CongViec>();
@@ -105,11 +105,50 @@ public class TaskService {
 		return listCongViec;
 	}
 	
-	// Grab all table entries service.
+	// Grab all table entries service under a specified project.
 	public List<CongViec> getTaskTableUnderProject(int projectId) {
 		List<CongViec> listCongViec = congViecRepository.findUnderProject(projectId);
 		
 		return listCongViec;
+	}
+	
+	// Grab all table entries service under a specified project.
+	public List<List<CongViec>> getTaskTableUnderProjectSorted(int projectId) {
+		List<CongViec> listCongViec = congViecRepository.findUnderProject(projectId);
+		List<List<CongViec>> listCongViecSorted = new ArrayList<List<CongViec>>();
+		List<CongViec> listCongViecInProgress = new ArrayList<CongViec>();
+		List<CongViec> listCongViecFinished = new ArrayList<CongViec>();
+		List<CongViec> listCongViecNotStarted = new ArrayList<CongViec>();
+		
+		for (CongViec congViec : listCongViec) {
+			int projectStatus = congViec.getTrangThai().getId();
+			switch (projectStatus) {
+			
+			case 1:
+			{
+				listCongViecInProgress.add(congViec);
+				break;
+			}
+			
+			case 2:
+			{
+				listCongViecFinished.add(congViec);
+				break;
+			}
+			
+			case 3:
+			{
+				listCongViecNotStarted.add(congViec);
+				break;
+			}
+			default:
+				break;
+			}
+        }
+		listCongViecSorted.add(0,listCongViecInProgress);
+		listCongViecSorted.add(1,listCongViecFinished);
+		listCongViecSorted.add(2,listCongViecNotStarted);
+		return listCongViecSorted;
 	}
 	
 	public int getTaskLastestId() {
@@ -119,15 +158,15 @@ public class TaskService {
 	}
 	
 	// Add profile service.
-		public boolean addTask(	String ten, String mota,
-									String ngayBatDau, String ngayKetThuc, 
-									int idDuAn ) {
-			
-			boolean isSuccess = congViecRepository.insertAllFields(	ten, mota,
-																ngayBatDau, ngayKetThuc,
-																idDuAn);
-			return isSuccess;
-		}
+	public boolean addTask(	String ten, String mota,
+								String ngayBatDau, String ngayKetThuc, 
+								int idDuAn ) {
+		
+		boolean isSuccess = congViecRepository.insertAllFields(	ten, mota,
+															ngayBatDau, ngayKetThuc,
+															idDuAn);
+		return isSuccess;
+	}
 	
 	// Delete an entry from table by ID.
 	public boolean deleteRoleById(int id) {

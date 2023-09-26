@@ -227,6 +227,97 @@
                 <!-- END THỐNG KÊ -->
 
                 <!-- BEGIN DANH SÁCH CÔNG VIỆC -->
+                <c:forEach var="detailRow" items="${listDetailRow}">
+		            <div class="row">
+	                    <div class="col-xs-12">
+	                        <a href="#" class="group-title">
+	                            <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
+	                            <span>${detailRow.duAn.ten}</span>
+	                        </a>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="white-box">
+	                            <h3 class="box-title">Chưa thực hiện</h3>
+	                            <div class="message-center">
+	                            	<c:forEach var="congViec" items="${detailRow.listCongViecNotStarted}">
+	                            	<a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>${congViec.ten}</h5> <span class="mail-desc">${congViec.mota}</span> <span
+	                                            class="time">${congViec.ngayKetThuc}</span>
+	                                    </div>
+	                                </a>
+	                            	</c:forEach>
+	                                <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
+	                                            class="time">9:30 AM</span>
+	                                    </div>
+	                                </a>
+	                                <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
+	                                        <span class="time">9:10 AM</span>
+	                                    </div>
+	                                </a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="white-box">
+	                            <h3 class="box-title">Đang thực hiện</h3>
+	                            <div class="message-center">
+	                            	<c:forEach var="congViec" items="${detailRow.listCongViecInProgress}">
+	                            	<a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>${congViec.ten}</h5> <span class="mail-desc">${congViec.mota}</span> <span
+	                                            class="time">${congViec.ngayKetThuc}</span>
+	                                    </div>
+	                                </a>
+	                            	</c:forEach>
+	                                <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
+	                                            class="time">9:30 AM</span>
+	                                    </div>
+	                                </a>
+	                                <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
+	                                        <span class="time">9:10 AM</span>
+	                                    </div>
+	                                </a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="white-box">
+	                            <h3 class="box-title">Đã hoàn thành</h3>
+	                            <div class="message-center">
+	                            	<c:forEach var="congViec" items="${detailRow.listCongViecFinished}">
+	                            	<a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>${congViec.ten}</h5> <span class="mail-desc">${congViec.mota}</span> <span
+	                                            class="time">${congViec.ngayKetThuc}</span>
+	                                    </div>
+	                                </a>
+	                            	</c:forEach>
+	                                <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
+	                                            class="time">9:30 AM</span>
+	                                    </div>
+	                                </a>
+	                                <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
+	                                        <span class="time">9:10 AM</span>
+	                                    </div>
+	                                </a>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+				</c:forEach>
                 <div class="row">
                     <div class="col-xs-12">
                         <a href="#" class="group-title">
