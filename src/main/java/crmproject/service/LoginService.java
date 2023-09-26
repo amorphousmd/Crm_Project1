@@ -18,7 +18,9 @@ public class LoginService {
 		List<NguoiDung> listNguoiDung = nguoiDungRepository.findByEmailandPassword(email, password);
 		if (listNguoiDung.size() > 0) {
 			HttpSession session = request.getSession();
+			System.out.println(listNguoiDung.get(0).getLoaiThanhVien().getTen());
 			session.setAttribute("roleName", listNguoiDung.get(0).getLoaiThanhVien().getTen());
+			session.setAttribute("userID", listNguoiDung.get(0).getId());
 		}
 		
 		return listNguoiDung.size() > 0;

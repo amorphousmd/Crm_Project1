@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import crmproject.entity.CongViec;
 import crmproject.entity.DuAn;
@@ -32,13 +33,14 @@ public class ProfileController extends HttpServlet{
 		String path = req.getServletPath();
 		switch (path) {
 		case "/profile":
-			int id;
-			try {
-			    id = Integer.parseInt("5");
-			} catch (NumberFormatException e) {
-				req.getRequestDispatcher("user-details.jsp").forward(req, resp);
-				break;
-			}
+			HttpSession session = (req.getSession());
+			int id = (int)session.getAttribute("userID");
+//			try {
+//			    id = Integer.parseInt(userID);
+//			} catch (NumberFormatException e) {
+//				req.getRequestDispatcher("user-details.jsp").forward(req, resp);
+//				break;
+//			}
 			
 //			List<DuAn> listDuAn = projectService.getProjectsWithUserId(id);
 			List<CongViec> listCongViec = taskService.getTasksWithUserId(id);
@@ -60,7 +62,6 @@ public class ProfileController extends HttpServlet{
 			req.setAttribute("listProjectNotStarted", listCongViecNotStarted);
 			
 			NguoiDung nguoiDung = userService.getUserAtId(id);
-			System.out.println(nguoiDung.getFullname());
 			req.setAttribute("user", nguoiDung);
 			
 			req.getRequestDispatcher("profile.jsp").forward(req, resp);

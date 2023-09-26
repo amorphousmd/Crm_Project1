@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+//import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +13,6 @@ import crmproject.service.LoginService;
 
 @WebServlet(name = "loginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private LoginService loginService = new LoginService();
 
@@ -25,7 +23,6 @@ public class LoginController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String email = req.getParameter("email");
 		String matkhau = req.getParameter("password");
 //		Cookie isAdminCookie = new Cookie("isAdmin", "true");
@@ -33,6 +30,8 @@ public class LoginController extends HttpServlet{
 		
 		if (isSuccess) {
 			System.out.println("Success");
+			resp.sendRedirect("http://localhost:8080/crmproject/");
+			return;
 		}
 		else {
 			System.out.println("Failed");

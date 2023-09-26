@@ -111,6 +111,7 @@ public class NguoiDungRepository {
 				
 				LoaiThanhVien loaiThanhVien = new LoaiThanhVien();
 				loaiThanhVien.setId(resultSet.getInt("id_loaithanhvien"));
+				loaiThanhVien.setTen(resultSet.getString("ten"));
 				nguoiDung.setLoaiThanhVien(loaiThanhVien);
 				
 				listNguoiDung.add(nguoiDung);
