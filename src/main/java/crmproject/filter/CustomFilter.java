@@ -17,7 +17,9 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter(filterName = "customFilter", urlPatterns = {"/role-add", "/role-table", 
 													   "/groupwork", "/user-table", 
-													   "/task"})
+													   "/task", "/groupwork-assign",
+													   "/groupwork-unassign", "/task-assign",
+													   "/task-unassign"})
 public class CustomFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -103,6 +105,54 @@ public class CustomFilter implements Filter {
 		}
 		
 		case "/task":
+		{
+			if (roleName != null && ( roleName.toUpperCase().equals("ADMIN") ||
+									  roleName.toUpperCase().equals("LEADER"))) {
+				chain.doFilter(request, response);
+			}
+			else {
+				((HttpServletResponse)response).sendRedirect(contextPath + "/");
+			}
+			break;
+		}
+		
+		case "/groupwork-assign":
+		{
+			if (roleName != null && ( roleName.toUpperCase().equals("ADMIN") ||
+									  roleName.toUpperCase().equals("LEADER"))) {
+				chain.doFilter(request, response);
+			}
+			else {
+				((HttpServletResponse)response).sendRedirect(contextPath + "/");
+			}
+			break;
+		}
+		
+		case "/groupwork-unassign":
+		{
+			if (roleName != null && ( roleName.toUpperCase().equals("ADMIN") ||
+									  roleName.toUpperCase().equals("LEADER"))) {
+				chain.doFilter(request, response);
+			}
+			else {
+				((HttpServletResponse)response).sendRedirect(contextPath + "/");
+			}
+			break;
+		}
+		
+		case "/task-assign":
+		{
+			if (roleName != null && ( roleName.toUpperCase().equals("ADMIN") ||
+									  roleName.toUpperCase().equals("LEADER"))) {
+				chain.doFilter(request, response);
+			}
+			else {
+				((HttpServletResponse)response).sendRedirect(contextPath + "/");
+			}
+			break;
+		}
+		
+		case "/task-unassign":
 		{
 			if (roleName != null && ( roleName.toUpperCase().equals("ADMIN") ||
 									  roleName.toUpperCase().equals("LEADER"))) {
