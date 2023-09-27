@@ -21,7 +21,8 @@ import crmproject.service.UserService;
 @WebServlet(name = "groupWorkController", urlPatterns = {"/groupwork", 
 														 "/groupwork-add", 
 														 "/groupwork-details",
-														 "/groupwork-assign"})
+														 "/groupwork-assign",
+														 "/groupwork-unassign"})
 public class GroupWorkController extends HttpServlet{
 	/**
 	 * 
@@ -96,7 +97,20 @@ public class GroupWorkController extends HttpServlet{
 			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
 			break;
 		}
-		
+		case "/groupwork-unassign":
+		{
+			System.out.println(req.getParameter("project-id"));
+			System.out.println("dsds");
+			System.out.println(req.getParameter("project-id-users"));
+			
+			List<DuAn> listDuAn = projectService.getProjectTable();
+			req.setAttribute("projectList", listDuAn);
+			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			req.getRequestDispatcher("groupwork-unassign.jsp").forward(req, resp);
+			break;
+		}
 		default:
 			break;
 		}
@@ -156,6 +170,20 @@ public class GroupWorkController extends HttpServlet{
 			List<NguoiDung> listNguoiDung = userService.getUserTable();
 			req.setAttribute("userList", listNguoiDung);
 			req.getRequestDispatcher("groupwork-assign.jsp").forward(req, resp);
+			break;
+		}
+		case "/groupwork-unassign":
+		{
+			System.out.println(req.getParameter("project-id"));
+			System.out.println("dsds");
+			System.out.println(req.getParameter("project-id-users"));
+			
+			List<DuAn> listDuAn = projectService.getProjectTable();
+			req.setAttribute("projectList", listDuAn);
+			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			req.getRequestDispatcher("groupwork-unassign.jsp").forward(req, resp);
 			break;
 		}
 		default:

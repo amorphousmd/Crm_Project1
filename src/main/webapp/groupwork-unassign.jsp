@@ -128,7 +128,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" style="width:30%">
-                        <h4 class="page-title">Phân công công việc cho người dùng</h4>
+                        <h4 class="page-title">Phân công người dùng vào dự án</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -137,19 +137,22 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material" action="<c:url value='/task-assign'/>" method="post">
+                            <form class="form-horizontal form-material">
+                            	<div class="form-group" style="margin:0px">
+                                	<input type="hidden" name="hiddenValue" value="your_value_here">    
+                                </div>                        
                                 <div class="form-group" >
-                                    <label class="col-md-12">Tên công việc</label>
-                                    <select class="form-control form-control-line" name='task-project-id' id='selected-task'>
-                                       	<c:forEach var="congViec" items="${taskList}">
-                                       		<option value="${congViec.id}">${congViec.id}. ${congViec.ten}</option>
+                                    <label class="col-md-12">Tên dự án</label>
+                                    <select class="form-control form-control-line" name='project-id' id='selected-project'>
+                                       	<c:forEach var="duAn" items="${projectList}">
+                                       		<option value="${duAn.id}">${duAn.id}. ${duAn.ten}</option>
 							        	</c:forEach>
                                     </select>
                                 </div>                                
                                 <div class="form-group" id="form-group-minh">
-                                    <label class="col-md-12 col-md-12-minh">Các người dùng thêm vào công việc</label>
+                                    <label class="col-md-12 col-md-12-minh">Các người dùng xoá khỏi dự án</label>
                                    	<div class="col-md-12 col-md-12-minh">
-                                        <select class="form-control form-control-line" name='project-id-manager' id='minh'>
+                                        <select class="form-control form-control-line" name='project-id-users' id='minh' multiple>
                                             <c:forEach var="nguoiDung" items="${userList}">
                                         		<option value="${nguoiDung.id}">${nguoiDung.id}. ${nguoiDung.fullname}</option>
 								        	</c:forEach>
@@ -195,7 +198,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
-    <script type="text/javascript" src="js/task-assign.js"></script>
+    <script type="text/javascript" src="js/groupwork-unassign.js"></script>
     <script>
     new MultiSelectTag('minh')  // id
     $("#html-minh").css("font-size", "18px");

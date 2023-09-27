@@ -19,7 +19,8 @@ import crmproject.service.UserService;
 
 @WebServlet(name = "taskController", urlPatterns = {"/task",
 													"/task-add",
-													"/task-assign"})
+													"/task-assign",
+													"/task-unassign"})
 public class TaskController extends HttpServlet{
 	/**
 	 * 
@@ -62,6 +63,17 @@ public class TaskController extends HttpServlet{
 			req.setAttribute("userList", listNguoiDung);
 			
 			req.getRequestDispatcher("task-assign.jsp").forward(req, resp);
+			break;
+		}
+		case "/task-unassign":
+		{
+			List<CongViec> listCongViec = taskService.getTaskTable();
+			req.setAttribute("taskList", listCongViec);
+			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			
+			req.getRequestDispatcher("task-unassign.jsp").forward(req, resp);
 			break;
 		}
 		default:
@@ -138,6 +150,17 @@ public class TaskController extends HttpServlet{
 			req.setAttribute("userList", listNguoiDung);
 			
 			req.getRequestDispatcher("task-assign.jsp").forward(req, resp);
+			break;
+		}
+		case "/task-unassign":
+		{
+			List<CongViec> listCongViec = taskService.getTaskTable();
+			req.setAttribute("taskList", listCongViec);
+			
+			List<NguoiDung> listNguoiDung = userService.getUserTable();
+			req.setAttribute("userList", listNguoiDung);
+			
+			req.getRequestDispatcher("task-unassign.jsp").forward(req, resp);
 			break;
 		}
 		default:

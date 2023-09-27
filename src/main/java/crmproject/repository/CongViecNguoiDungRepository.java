@@ -71,4 +71,24 @@ public class CongViecNguoiDungRepository {
 		
 		return listCongViecId;
 	}
+
+	// Delete a row from table, specified by the ID.
+	public int deleteAtIds(int id_congviec, int id_nguoidung) {
+		int count = 0;
+		String query = "DELETE FROM congviec_nguoidung \r\n"
+				+ "WHERE id_congviec = ? AND id_nguoidung = ?;";
+		Connection connection = MysqlConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id_congviec);
+			statement.setInt(2, id_nguoidung);
+			count = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }

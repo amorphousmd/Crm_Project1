@@ -21,7 +21,8 @@ import crmproject.service.ProjectUserService;
 														  "/api/project/modify",
 														  "/api/project/modify-user-level",
 														  "/api/project/getall",
-														  "/api/project/add-users"})
+														  "/api/project/add-users",
+														  "/api/project/remove-users"})
 public class ApiProjectController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
@@ -186,6 +187,46 @@ public class ApiProjectController extends HttpServlet{
 				System.out.println(selectedProjectId);
 				System.out.println(userId);
 			    isSuccess = projectUserService.addEntry(selectedProjectId, userId);
+			}
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/project/remove-users":
+		{
+			String selectedProjectIdStr = req.getParameter("project");
+			int selectedProjectId = 0;
+			try {
+				selectedProjectId = Integer.parseInt(selectedProjectIdStr);
+			} catch (NumberFormatException e) {
+				selectedProjectId = 0;
+			}
+			
+			String input = req.getParameter("user-list");
+			String[] parts = input.split(",");
+			int[] selectedUsers = new int[parts.length];
+
+			for (int i = 0; i < parts.length; i++) {
+				selectedUsers[i] = Integer.parseInt(parts[i]);
+			}
+			
+			boolean isSuccess = false;
+			for (int userId : selectedUsers) {
+				System.out.println(selectedProjectId);
+				System.out.println(userId);
+			    isSuccess = projectUserService.removeEntry(selectedProjectId, userId);
 			}
 			
 			BaseResponse baseResponse = new BaseResponse();

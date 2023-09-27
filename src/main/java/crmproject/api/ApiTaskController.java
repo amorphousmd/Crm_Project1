@@ -18,7 +18,8 @@ import crmproject.service.TaskUserService;
 @WebServlet(name = "apiTaskController", urlPatterns = {"/api/task/delete", 
 													   "/api/task/modify",
 													   "/api/task/modify-user-level",
-													   "/api/task/add-users"})
+													   "/api/task/add-users",
+													   "/api/task/remove-users"})
 public class ApiTaskController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private TaskService taskService = new TaskService();
@@ -146,6 +147,46 @@ public class ApiTaskController extends HttpServlet{
 				System.out.println(selectedTaskId);
 				System.out.println(userId);
 			    isSuccess = taskUserService.addEntry(selectedTaskId, userId);
+			}
+			
+			BaseResponse baseResponse = new BaseResponse();
+			baseResponse.setStatusCode(200);
+			baseResponse.setMessage(isSuccess ? "Success" : "Failed");
+			baseResponse.setData(isSuccess);
+			
+			String dataJSON = gson.toJson(baseResponse);
+			
+			PrintWriter out = resp.getWriter();
+	        resp.setContentType("application/json");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+		    out.print(dataJSON);	
+	        out.flush();   
+			break;
+		}
+		case "/api/task/remove-users":
+		{
+			String selectedTaskIdStr = req.getParameter("task");
+			int selectedTaskId = 0;
+			try {
+				selectedTaskId = Integer.parseInt(selectedTaskIdStr);
+			} catch (NumberFormatException e) {
+				selectedTaskId = 0;
+			}
+			
+			String input = req.getParameter("user-list");
+			String[] parts = input.split(",");
+			int[] selectedUsers = new int[parts.length];
+
+			for (int i = 0; i < parts.length; i++) {
+				selectedUsers[i] = Integer.parseInt(parts[i]);
+			}
+			
+			boolean isSuccess = false;
+			for (int userId : selectedUsers) {
+				System.out.println(selectedTaskId);
+				System.out.println(userId);
+			    isSuccess = taskUserService.removeEntry(selectedTaskId, userId);
 			}
 			
 			BaseResponse baseResponse = new BaseResponse();

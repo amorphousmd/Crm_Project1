@@ -71,4 +71,24 @@ public class DuAnNguoiDungRepository {
 		
 		return listDuAnId;
 	}
+	
+	// Delete a row from table, specified by the ID.
+	public int deleteAtIds(int id_duan, int id_nguoidung) {
+		int count = 0;
+		String query = "DELETE FROM duan_nguoidung \r\n"
+				+ "WHERE id_duan = ? AND id_nguoidung = ?;";
+		Connection connection = MysqlConfig.getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(query);
+			statement.setInt(1, id_duan);
+			statement.setInt(2, id_nguoidung);
+			count = statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
 }

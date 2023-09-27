@@ -147,7 +147,7 @@
                                     </select>
                                 </div>                                
                                 <div class="form-group" id="form-group-minh">
-                                    <label class="col-md-12 col-md-12-minh">Các người dùng thêm vào công việc</label>
+                                    <label class="col-md-12 col-md-12-minh">Các người dùng xoá khỏi công việc</label>
                                    	<div class="col-md-12 col-md-12-minh">
                                         <select class="form-control form-control-line" name='project-id-manager' id='minh'>
                                             <c:forEach var="nguoiDung" items="${userList}">
@@ -195,7 +195,7 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/custom.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
-    <script type="text/javascript" src="js/task-assign.js"></script>
+    <script type="text/javascript" src="js/task-unassign2.js"></script>
     <script>
     new MultiSelectTag('minh')  // id
     $("#html-minh").css("font-size", "18px");
